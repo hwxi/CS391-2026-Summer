@@ -20,14 +20,14 @@ Please create a repository of your own.
 For instance, the following one is created
 for my own use:
 
-https://github.com/hwxi/CS391-2026-Summer-hwxi
+https://github.com/githwxi/CS391-2026-Summer-hwxi
 
 Then please mirror-push the class repo into your own repo:
 
 ```
 cd CS391-2026-Summer
-git push --mirror https://github.com/hwxi/CS391-2026-Summer-hwxi
-git clone https://github.com/hwxi/CS391-2026-Summer-hwxi
+git push --mirror https://github.com/githwxi/CS391-2026-Summer-hwxi
+git clone https://github.com/githwxi/CS391-2026-Summer-hwxi
 cd CS391-2026-Summer-hwxi
 git remote add upstream https://hwxi@github.com/hwxi/CS391-2026-Summer.git
 ```
