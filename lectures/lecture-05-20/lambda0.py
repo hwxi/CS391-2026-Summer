@@ -90,7 +90,8 @@ def term_size(t0):
         return 1 + term_size(t0.arg2)
     if (ctag == "TMapp"):
         return 1 + term_size(t0.arg1) + term_size(t0.arg2)
-    assert False, "term_size: DEADCODE!!!"
+    # assert False, "term_size: DEADCODE!!!"
+    raise TypeError(tm0) # HX-2026-05-20: should be deadcode!
 
 ############################################################
 
@@ -128,7 +129,8 @@ def term_subst0(tm0, tx0, sub):
         tm1 = tm0.arg1
         tm2 = tm0.arg2
         return term_app(subst0(tm1), subst0(tm2))
-    assert False, "term_subst0: DEADCODE!!!"
+    # assert False, "term_subst0: DEADCODE!!!"
+    raise TypeError(tm0) # HX-2026-05-20: should be deadcode!
 
 _ = print("x[y -> I] =", term_subst0(var_x, "y", term_I))
 _ = print("x[x -> I] =", term_subst0(var_x, "x", term_I))
@@ -169,7 +171,8 @@ def free_vars(tm0):
         return free_vars(tm0.arg2) - {tm0.arg1}
     if (ctag == "TMapp"): # FV(app(t1, t2)) = FV(t1) + FV(t2)
         return free_vars(tm0.arg1) | free_vars(tm0.arg2)
-    assert False, "free_vars: DEADCODE!!!"
+    # assert False, "free_vars: DEADCODE!!!"
+    raise TypeError(tm0) # HX-2026-05-20: should be deadcode!
 
 _ = print("free_vars(S) =", free_vars(term_S))
 
