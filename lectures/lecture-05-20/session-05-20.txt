@@ -1,0 +1,435 @@
+hwxi@zoe:~$ cd Teaching/CS391-2026-Summer/
+hwxi@zoe:~/Teaching/CS391-2026-Summer$ ls
+admin  assigns  grading  lectures  README.md
+hwxi@zoe:~/Teaching/CS391-2026-Summer$ ls
+admin  assigns  grading  lectures  README.md
+hwxi@zoe:~/Teaching/CS391-2026-Summer$ ls -al
+total 32
+drwxrwxr-x  7 hwxi hwxi 4096 May 20 17:31 .
+drwxr-xr-x 25 hwxi hwxi 4096 May 19 14:06 ..
+drwxrwxr-x  2 hwxi hwxi 4096 May 19 15:04 admin
+drwxrwxr-x  6 hwxi hwxi 4096 May 20 17:02 assigns
+drwxrwxr-x  8 hwxi hwxi 4096 May 20 17:31 .git
+drwxrwxr-x  5 hwxi hwxi 4096 May 19 14:46 grading
+drwxrwxr-x  3 hwxi hwxi 4096 May 20 13:30 lectures
+-rw-rw-r--  1 hwxi hwxi  915 May 20 17:31 README.md
+hwxi@zoe:~/Teaching/CS391-2026-Summer$ ls
+admin  assigns  grading  lectures  README.md
+hwxi@zoe:~/Teaching/CS391-2026-Summer$ ls
+admin  assigns  grading  lectures  README.md
+hwxi@zoe:~/Teaching/CS391-2026-Summer$ cd lectures/
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures$ ls
+lecture-05-20
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures$ ls
+lecture-05-20
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures$ cd lecture-05-20/
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ ls
+lambda0.dats  lambda0.dats~  lambda0.py  lambda0.py~
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ rm *~
+rm: remove regular file 'lambda0.dats~'? y
+rm: remove regular file 'lambda0.py~'? y
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ ls
+lambda0.dats  lambda0.py
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ ls
+lambda0.dats  lambda0.dats~  lambda0.py
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ mv lambda0.py lambda0.py.bak
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ cp lambda0.py.bak lambda0.py
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz =  TMvar(xyz)
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+Traceback (most recent call last):
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 50, in <module>
+    _ = print("var_xyz = " + var_xyz)
+              ~~~~~~~~~~~~~^~~~~~~~~
+TypeError: can only concatenate str (not "term_var") to str
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+Traceback (most recent call last):
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 50, in <module>
+    _ = print("var_xyz = " ++ var_xyz)
+                            ^^^^^^^^^
+TypeError: bad operand type for unary +: 'term_var'
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 60
+    term_K' = term_lam("x", term_lam("y", var_y)) # lambda x. lambda y. y
+          ^
+SyntaxError: unterminated string literal (detected at line 60)
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ 
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+Traceback (most recent call last):
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 97, in <module>
+    _ = print("term_size(I) =", term_size(I))
+                                          ^
+NameError: name 'I' is not defined
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+Traceback (most recent call last):
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 97, in <module>
+    _ = print("term_size(I) =", term_size(term_I))
+                                ^^^^^^^^^^^^^^^^^
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 93, in term_size
+    assert false, "term_size: DEADCODE!!!"
+           ^^^^^
+NameError: name 'false' is not defined. Did you mean: 'False'?
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+Traceback (most recent call last):
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 97, in <module>
+    _ = print("term_size(I) =", term_size(term_I))
+                                ^^^^^^^^^^^^^^^^^
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 93, in term_size
+    assert False, "term_size: DEADCODE!!!"
+           ^^^^^
+AssertionError: term_size: DEADCODE!!!
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+Traceback (most recent call last):
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 97, in <module>
+    _ = print("term_size(x) =", term_size(var_x))
+                                ^^^^^^^^^^^^^^^^
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 93, in term_size
+    assert False, "term_size: DEADCODE!!!"
+           ^^^^^
+AssertionError: term_size: DEADCODE!!!
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ ls
+lambda0.dats  lambda0.dats~  lambda0.py  lambda0.py~  lambda0.py.bak
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ rm *~
+rm: remove regular file 'lambda0.dats~'? y
+rm: remove regular file 'lambda0.py~'? y
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ ls
+lambda0.dats  lambda0.py  lambda0.py.bak
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ git add lambda0.dats lambda0.py
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ git commit -am "Updating: adding lecture-05-20"
+[main 7713dbd] Updating: adding lecture-05-20
+ 3 files changed, 205 insertions(+), 3 deletions(-)
+ create mode 100644 lectures/lecture-05-20/lambda0.dats
+ create mode 100644 lectures/lecture-05-20/lambda0.py
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ git push -u
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (7/7), 1.83 KiB | 1.83 MiB/s, done.
+Total 7 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.        
+To github.com:hwxi/CS391-2026-Summer.git
+   32ea3e2..7713dbd  main -> main
+branch 'main' set up to track 'origin/main'.
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ cd ../../assigns/
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns$ ls
+01  02  03  04
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns$ cd 01
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01$ ls
+Code  MySolution  README.md  Solution
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01$ ls
+Code  MySolution  README.md  Solution
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01$ cd Code
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01/Code$ ls
+assign01.py
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01/Code$ cd ../
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01$ cd MySolution/
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01/MySolution$ ls
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01/MySolution$ ls
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01/MySolution$ ls
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01/MySolution$ cd ..
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns/01$ cd ..
+hwxi@zoe:~/Teaching/CS391-2026-Summer/assigns$ cd ..
+hwxi@zoe:~/Teaching/CS391-2026-Summer$ ls
+admin  assigns  grading  lectures  README.md
+hwxi@zoe:~/Teaching/CS391-2026-Summer$ cd lectures/lecture-05-20/
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ ls
+lambda0.dats  lambda0.py  lambda0.py.bak
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+Traceback (most recent call last):
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 133, in <module>
+    _ = print("x[x -> I] =", term_subst0(var_x, "x", I))
+                                                     ^
+NameError: name 'I' is not defined
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[x -> I] = TMlam(x,TMvar(x))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+I[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 138
+    _ = print("(lam x.y)[y -> I] =", term_subst0(term_lam("x", var_y), y, term_I)
+             ^
+SyntaxError: '(' was never closed
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+I[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+Traceback (most recent call last):
+  File "/home/hwxi/Teaching/CS391-2026-Summer/lectures/lecture-05-20/lambda0.py", line 138, in <module>
+    _ = print("(lam x.y)[y -> I] =", term_subst0(term_lam("x", var_y), y, term_I))
+                                                                       ^
+NameError: name 'y' is not defined
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+I[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+(lam x.y)[y -> I] = TMlam(x,TMvar(y))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+I[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+(lam x.y)[y -> I] = TMlam(x,TMlam(x,TMvar(x)))
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+I[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+(lam x.y)[y -> I] = TMlam(x,TMlam(x,TMvar(x)))
+foo(10) = 20
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+I[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+(lam x.y)[y -> I] = TMlam(x,TMlam(x,TMvar(x)))
+foo(10) = 20
+foo2(10) = 20
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+I[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+(lam x.y)[y -> I] = TMlam(x,TMlam(x,TMvar(x)))
+foo(10) = 20
+foo2(10) = 20
+(lambda x: x+x)(10) 20
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+I[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+(lam x.y)[y -> I] = TMlam(x,TMlam(x,TMvar(x)))
+foo(10) = 20
+foo2(10) = 20
+(lambda x: x+x)(10) = 20
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ python3 lambda0.py
+var_xyz = TMvar(xyz)
+term_I = TMlam(x,TMvar(x))
+term_K = TMlam(x,TMlam(y,TMvar(x)))
+term_K1 = TMlam(x,TMlam(y,TMvar(y)))
+term_S = TMlam(x,TMlam(y,TMlam(z,TMapp(TMapp(TMvar(x),TMvar(z)),TMapp(TMvar(y),TMvar(z))))))
+term_size(x) = 1
+term_size(I) = 2
+term_size(K) = 3
+term_size(S) = 10
+x[y -> I] = TMvar(x)
+x[x -> I] = TMlam(x,TMvar(x))
+I[x -> I] = TMlam(x,TMvar(x))
+(x(y))[y -> I] = TMapp(TMvar(x),TMlam(x,TMvar(x)))
+(y(x))[y -> I] = TMapp(TMlam(x,TMvar(x)),TMvar(y))
+(lam x.y)[y -> I] = TMlam(x,TMlam(x,TMvar(x)))
+foo(10) = 20
+foo2(10) = 20
+(lambda x: x+x)(10) = 20
+free_vars(S) = set()
+hwxi@zoe:~/Teaching/CS391-2026-Summer/lectures/lecture-05-20$ 

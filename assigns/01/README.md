@@ -19,7 +19,7 @@ Your report should contain the following basics:
 terms in Church's lambda-calculus, which often referred
 to as the pure lambda-calculus.
 
-2: What is a freen variable (in a lambda-term)? What is a
+2: What is a free variable (in a lambda-term)? What is a
 bound variable?
 
 3: What is alpha-equivalence? What is alpha-renaming?
