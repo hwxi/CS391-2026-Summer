@@ -1,0 +1,62 @@
+############################################################
+//
+Week 1:
+//
+05/19/2026:
+Class starts:
+lambda-calculus: terms; free/bound variables; alpha-equivalence
+//
+05/20/2026:
+Implementation starts:
+encoding the datatype for lambda-terms; substution for closed subst-terms
+//
+############################################################
+//
+Week 2:
+//
+05/25/2026:
+No class on Memorial day
+//
+05/26/2026:
+lambda-calculus:
+beta-reduction; call-by-name and call-by-value; fixed-point operator
+//
+05/27/2026:
+Implementing a substitution-based interpreter for lambda-calculus plus
+certain extensions
+//
+05/29/2026: Running Monday's schedule
+//
+############################################################
+//
+Week 3: Closure-based Interpreter
+//
+06/01/2026:
+06/02/2026:
+06/03/2026:
+//
+############################################################
+//
+Week 4: Type-checker for the simple types
+//
+06/08/2026:
+06/09/2026:
+06/10/2026:
+//
+############################################################
+//
+Week 5: Python code emission
+//
+06/15/2026:
+06/16/2026:
+06/17/2026:
+//
+############################################################
+//
+Week 6: Wrapping things up
+//
+06/22/2026:
+06/23/2026:
+06/24/2026:
+//
+############################################################
