@@ -1,0 +1,102 @@
+
+Church's thesis states that every computation can be encoded as a
+PURE lambda-term. We hereby pay homage to Church's thesis by showing
+that the extensions (so far) added to LAMBDA can be translated into
+PURE lambda-calculus.
+
+############################################################
+# datatype term =
+# | TMint of sint
+# | TMbtf of bool
+# | TMvar of strn(*name*) // name
+# | TMlam of (strn, term) // abstraction
+# | TMapp of (term, term) // application
+# | TMop2 of (strn(*name*), term(*arg1*), term(*arg2))
+# | TMifb of (term(*cond*), term(*then*), term(*else*))
+############################################################
+
+In particular, you are asked to translate TMint, TMbtf, TMop2, and TMifb
+into Church's pure lambda-calculus.
+
+######
+#
+# Task 1
+#
+######
+
+def TMint_trans(tm0):
+  assert tm0.ctag == "TMint"
+  # HX: 10 points
+  # Please write code that generates the Church numeral
+  # for tm0.arg1 (which is assumed to be a non-negative
+  # integer)
+
+def TMbtf_trans(tm0):
+  assert tm0.ctag == "TMbtf"
+  # HX: 10 points
+  # Please write code that generates the Church boolean
+  # for tm0.arg1 (which is either True or False)
+  #
+
+def TMop2_trans(tm0):
+  assert tm0.ctag == "TMop2"
+  #
+  # HX: 100 points
+  # This is the most interesting part
+  # You only need to handle: +, -, *
+  # You only need to handle: <, <=, >, >=, ==, and !=
+  #
+
+def TMifb_trans(tm0):
+  assert tm0.ctag == "TMifb"
+  #
+  # HX: 10 points
+  # Please translate 'TMifb' into the pure lambda-calc
+  #
+
+######
+#
+# Task 2: 20 points
+#
+######
+
+Please implement a normalizer for the PURE lambda-calculus.
+Note that a normalizer should go under "lambda" to normalize
+the body of a lambda-abstraction. This one requires that you
+use 'term_subst1' (vs. 'term_subst0), which handles substitution
+for open lambda-terms.
+
+def term_normlz(tm0):
+    """
+    Please use the leftmost evaluation strategy to normlize
+    a given PURE lambda-term
+    """
+
+######
+#
+# Task 3: 20 points
+#
+######
+
+Recall that the factorial function can be encoded in LAMBDA as
+follows:
+
+term_fact = \
+term_app(Yv,
+term_lam("f", term_lam("n",
+  term_ifb(term_op2("<=", tvar_n, tint_0), tint_1,
+    term_op2("*", tvar_n, term_app(tvar_f, term_op2("-", tvar_n, tint_1)))))))
+
+term_fact_3 = term_app(term_fact, term_int(3))
+
+Please use the functions implemented in Task~1 to translate it into
+an encoding in a PURE lambda-term (of the name term_fact_3_pure). Instead
+of using Yv, please use Theta to implement recursion. Please use term_normlz to
+normalize term_fact_3_pure and print out the result.
+
+Theta is often referred as Turing fixed-point combinator and it is defined as
+follows:
+
+Theta = (lam x.lam y.y(xxy))\ (lam x.lam y.y(xxy))
+
+Like Y, Theta is only good for call-by-name; it has a variant for call-by-value.
