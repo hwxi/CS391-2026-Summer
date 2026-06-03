@@ -94,7 +94,7 @@ an encoding in a PURE lambda-term (of the name term_fact_3_pure). Instead
 of using Yv, please use Theta to implement recursion. Please use term_normlz to
 normalize term_fact_3_pure and print out the result.
 
-Theta is often referred as Turing fixed-point combinator and it is defined as
+Theta is often referred to as Turing fixed-point combinator and it is defined as
 follows:
 
 Theta = (lam x.lam y.y(xxy))\ (lam x.lam y.y(xxy))
