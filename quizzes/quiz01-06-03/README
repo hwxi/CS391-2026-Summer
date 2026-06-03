@@ -1,0 +1,80 @@
+
+Quiz02's theme is programming with tuples.
+The total number of points of this quiz is 170.
+
+############################################################
+//
+# datatype term =
+# | TMint of sint
+# | TMbtf of bool
+# | TMvar of strn(*name*) // name
+# | TMlam of (strn, term) // abstraction
+# | TMapp of (term, term) // application
+# | TMop2 of (strn(*name*), term(*arg1*), term(*arg2))
+# | TMifb of (term(*cond*), term(*then*), term(*else*))
+# | TMfix of (strn(*f*), strn(*x*), term(*body*))
+#
+# | TMprj1 of (term)
+# | TMprj2 of (term)
+# | TMpair of (term(*1st*), term(*2nd*))
+//
+############################################################
+
+######
+#
+# Task 1
+#
+######
+
+Total points: 120
+
+Please extend the code in lectures/lecture-06-02/lambda2.py
+to handle the following three language constructs:
+
+| TMprj1 of (term) // 1st projection
+| TMprj2 of (term) // 2nd projection
+| TMpair of (term(*1st*), term(*2nd*))
+
+In particular, you need to handle the following functions:
+
+term_subst0 // substitution closed terms
+term_interp // substitution-based interpreter
+term_enveval // closure-based interpreter
+
+######
+#
+# Task 2
+#
+######
+
+Total points: 30
+
+Please TRANSLATE the following function into LAMBDA:
+
+def fact(n):
+  def loop(i, r):
+    return r if (i>=n) else loop(i+1, (i+1)*r)
+  return loop(0, 1)
+
+In particular, 'loop' should be translated into a function
+taking a pair (of integers) as its argument.
+
+Your translation should be correctly interpreted by both
+term_interp and term_evaluate
+
+######
+#
+# Task 3
+#
+######
+
+Total points: 20
+
+Recall Quiz01-05-29. Please finish the following functions
+for translating pairs and projections into PURE lambda-calculus
+
+def TMprj1_trans(tm0): ...
+def TMprj2_trans(tm0): ...
+def TMpair_trans(tm0): ...
+
+############################################################
