@@ -7,3 +7,5 @@
 Please transate into LAMBDA the following problem (for solving the 8-queen puzzle):
 
 https://ats-lang.github.io/FROZEN000/DOCUMENT/INT2PROGINATS/HTML/INT2PROGINATS-BOOK-onechunk.html#example-the-eight-queens-puzzle
+
+This example will be used as the "flagship" problem for testing the compiler you will be constructing.
