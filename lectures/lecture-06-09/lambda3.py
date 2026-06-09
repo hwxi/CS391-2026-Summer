@@ -1,17 +1,18 @@
-############################################################
+##################################################################
 #
 # HX: let's use dataclasses
 # HX: let's do type-checking
 # Tue Jun  9 08:08:43 AM EDT 2026
 #
-############################################################
+##################################################################
+type nint = int
 type sint = int
 type strn = str
-############################################################
+##################################################################
 from abc import ABC
 from enum import Enum
 from dataclasses import dataclass
-############################################################
+##################################################################
 #
 # HX-2026-06-09:
 # For Church's pure lambda-calculus
@@ -19,7 +20,7 @@ from dataclasses import dataclass
 type tvar = strn
 type term = TM000 \
     | TMvar | TMlam | TMapp \
-############################################################
+##################################################################
 @dataclass
 class TM000(ABC):
     pass
@@ -37,7 +38,7 @@ class TMapp(TM000):
     arg1: term
     arg2: term
     pass
-############################################################
+##################################################################
 def \
 term_subst0\
 (tm0: term, tx0: tvar, sub: term) -> term:
@@ -58,15 +59,16 @@ term_subst0\
     if isinstance(tm0, TMapp):
         return TMapp(subst0(tm0.arg1), subst0(tm0.arg2))
     raise TypeError(tm0) # HX-2026-06-09: should be deadcode!
-############################################################
-############################################################
+##################################################################
+##################################################################
 type dvar = strn
 type dexp = DE000 \
     | DEint | DEbtf | DEstr \
     | DEvar | DElam | DEapp \
     | DEop1 | DEop2 | DEif0 \
-    | DEfst | DEsnd | DEtup | DEfix
-############################################################
+    | DEfst | DEsnd | DEtup \
+    | DEfix | DElet
+##################################################################
 @dataclass
 class DE000(ABC):
     pass
@@ -132,13 +134,19 @@ class DEfix(DE000):
     arg2: dvar
     arg3: dexp
     pass
-############################################################
+@dataclass
+class DElet(DE000):
+    arg1: dvar
+    arg2: dexp
+    arg3: dexp
+    pass
+##################################################################
 type value = VAL000 \
     | VALint | VALbtf | VALstr \
     | VALtup | VALlam | VALfix \
-############################################################
+##################################################################
 type xvenv = ENV000 | ENVnil | ENVcons
-############################################################
+##################################################################
 @dataclass
 class VAL000(ABC):
     pass    
@@ -169,7 +177,7 @@ class VALfix(VAL000):
     arg1: DEfix
     arg2: xvenv
     pass
-############################################################
+##################################################################
 @dataclass
 class ENV000(ABC):
     pass    
@@ -182,7 +190,7 @@ class ENVcons(ABC):
     arg2: value
     arg3: xvenv
     pass    
-############################################################
+##################################################################
 def \
 xvenv_search\
 (xvs: xvenv, dx0: dvar) -> value:
@@ -195,10 +203,35 @@ xvenv_search\
             else:
                 xvs = xvs.arg3; continue
         raise TypeError(xvs) # HX-2026-06-02: should be deadcode!    
-############################################################
+##################################################################
 
 def dexp_eval000(dex: dexp):
     return dexp_evalenv(dex, ENVnil())
+
+def dop1_eval\
+(opr: strn, vl1: value) -> value:
+    if (opr == "-"):
+        assert isinstance(vl1, VALint)
+        return VALint(   -(vl1.arg1)   )
+    if (opr == "print"):
+        if isinstance(vl1, VALint):
+            print(vl1.arg1, end='')
+            return VALint(      0      )
+        elif isinstance(vl1, VALbtf):
+            print(vl1.arg1, end='')
+            return VALint(      0      )
+        elif isinstance(vl1, VALstr):
+            print(vl1.arg1, end='')
+            return VALint(      0      )
+        elif isinstance(vl1, VALlam):
+            print("VALlam(...)", end='')
+            return VALint(      0      )
+        elif isinstance(vl1, VALfix):
+            print("VALfix(...)", end='')
+            return VALint(      0      )
+        else:
+            print(vl1, end=''); return VALint(0)
+    raise TypeError(opr) # HX-2026-06-09: dop1_eval(...)
 
 def dop2_eval\
 (opr: strn, vl1: value, vl2: value) -> value:
@@ -313,8 +346,15 @@ def dexp_evalenv(dex: dexp, env0: xvenv) -> value:
             return dexp_evalenv(dex.arg2, env0)
         else:
             return dexp_evalenv(dex.arg3, env0)
+    if isinstance(dex, DElet):
+        # let x = de1 in de2
+        dx0 = dex.arg1
+        de1 = dex.arg2
+        vl1 = dexp_evalenv(de1, env0)
+        env1 = ENVcons(dx0, vl1, env0)
+        return dexp_evalenv(dex.arg3, env1)
     raise TypeError(dex) # HX-2026-06-09: dexp_evalenv(...)
 
-############################################################
+##################################################################
 # end of [CS391-2026-Summer/lectures/lecture-06-09/lambda3.py]
-############################################################
+##################################################################
