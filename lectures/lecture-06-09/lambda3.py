@@ -1,6 +1,7 @@
 ############################################################
 #
 # HX: let's use dataclasses
+# HX: let's do type-checking
 # Tue Jun  9 08:08:43 AM EDT 2026
 #
 ############################################################
@@ -245,7 +246,7 @@ def dop2_eval\
         assert isinstance(vl1, VALint)
         assert isinstance(vl2, VALint)
         return VALbtf(vl1.arg1 != vl2.arg1)
-    raise TypeError(opr) # HX-2026-06-02: unsupported!
+    raise TypeError(opr) # HX-2026-06-09: dop2_eval(...)
 
 def dexp_evalenv(dex: dexp, env0: xvenv) -> value:
     if isinstance(dex, DEint):
@@ -283,7 +284,7 @@ def dexp_evalenv(dex: dexp, env0: xvenv) -> value:
             vl1_env2 = \
                 ENVcons(vl1_dvar, vl2, vl1_env1)
             return dexp_evalenv(vl1_body, vl1_env2)
-        raise TypeError(vl1) # HX: TypeError: non-function!
+        raise TypeError(vl1) # HX-2026-06-09: non-function!
     if isinstance(dex, DEtup):
         vl1 = dexp_evalenv(dex.arg1, env0)
         vl2 = dexp_evalenv(dex.arg2, env0)
@@ -312,7 +313,7 @@ def dexp_evalenv(dex: dexp, env0: xvenv) -> value:
             return dexp_evalenv(dex.arg2, env0)
         else:
             return dexp_evalenv(dex.arg3, env0)
-    raise TypeError(dex) # HX: TypeError: dexp_evalenv(...)
+    raise TypeError(dex) # HX-2026-06-09: dexp_evalenv(...)
 
 ############################################################
 # end of [CS391-2026-Summer/lectures/lecture-06-09/lambda3.py]
