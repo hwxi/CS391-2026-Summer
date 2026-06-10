@@ -19,7 +19,7 @@ class fnlist:
 class fnlist_nil(fnlist):
     ctag = "nil"
     def __init__(self):
-        return None
+        pass
 class fnlist_cons(fnlist):
     ctag = "cons"
     def __init__(self, arg1, arg2):
@@ -37,7 +37,7 @@ functional lists in LAMBDA:
 Accordingly, we need additional forms of values:
 
 | VALlist_nil of () // HX: for nil-list
-| VALlist_cons of (value, value) // HX: for nil-list
+| VALlist_cons of (value, value) // HX: for cons-list
 
 Also, we need the following functions to be implemented
 as OP1s (that is, operators with one argument):
