@@ -12,7 +12,7 @@ What is your idea? Have you tested? Does it actually work?
 ############################################################
 
 In lectures/lecture-06-08/fnlist.py, we have the following
-implementation of functional list:
+implementation of functional lists:
 
 class fnlist:
     ctag = ""
@@ -113,7 +113,7 @@ of [dexp_evalenv] that can handle the evaluation of lists.
 
 Total points: 20+20=40
 
-Please TRANSLATE the following function into LAMBDA:
+Please TRANSLATE the following functions into LAMBDA:
 
 (*
 
@@ -138,6 +138,8 @@ HX-2026-06-10:
 The following two functions need to be translated
 into LAMBDA (dexp):
 
+(*
+
 def fnlist_tally(xs):
   if fnlist_nilq(xs):
     return 0
@@ -151,6 +153,8 @@ def fnlist_range1(n):
     else:
       return loop(i+1, fnlist_cons(n-1-i, res))
   return loop(0, fnlist_nil())
+
+*)
 
 Your translation should be correctly interpreted by
 [dexp_eval000].
