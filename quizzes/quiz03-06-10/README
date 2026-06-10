@@ -1,0 +1,177 @@
+
+Quiz03's theme is programming with disjoint unions.
+In lectures/lecture-06-08/fnlist.py, we have the following
+implementation of functional list:
+
+class fnlist:
+    ctag = ""
+class fnlist_nil(fnlist):
+    ctag = "nil"
+    def __init__(self):
+        return None
+class fnlist_cons(fnlist):
+    ctag = "cons"
+    def __init__(self, arg1, arg2):
+        self.arg1 = arg1
+        self.arg2 = arg2
+
+fnlist is a disjoint union of fnlist_nil and fnlist_cons.
+
+We can introduce the following language constructs to support
+functional lists in LAMBDA:
+
+| DElist_nil of () // HX: for nil-list
+| DElist_cons of (dexp, dexp) // for cons-list
+
+Accordingly, we need additional forms of values:
+
+| VALlist_nil of () // HX: for nil-list
+| VALlist_cons of (value, value) // HX: for nil-list
+
+Also, we need the following functions to be implemented
+as OP1s (that is, operators with one argument):
+1: list_nilq: testing if a list is nil
+2: list_head: returning the head of a non-nil list
+3: list_tail: returning the tail of a non-nil list
+
+############################################################
+//
+# datatype dexp =
+#
+# | DEint of sint
+# | DEbtf of bool
+#
+# | DEvar of strn(*name*) // name
+# | DElam of (strn, dexp) // abstraction
+# | DEapp of (dexp, dexp) // application
+#
+# | DEop1 of
+    (strn(*name*), dexp(*arg1*))
+# | DEop2 of
+    (strn(*name*), dexp(*arg1*), dexp(*arg2))
+#
+# | DEfst of (dexp)
+# | DEsnd of (dexp)
+# | DEtup of (dexp(*1st*), dexp(*2nd*))
+#
+# | DEif0 of
+    (dexp(*cond*), dexp(*then*), dexp(*else*))
+# | DEfix of (strn(*f*), strn(*x*), dexp(*body*))
+#
+# Note that list_nilq, list_head, and list_tail
+# are all implemented as OP1
+#
+# | DElist_nil of () // HX: for nil-list
+# | DElist_cons of (dexp, dexp) // for cons-list
+#
+//
+// DEop1: please support
+// 1. list_nilq (testing if a list is nil)
+// 2. list_head (returning the head of a non-nil list)
+// 3. list_tail (returning the tail of a non-nil list)
+//
+############################################################
+
+######
+#
+# Task 1
+#
+######
+
+Total points: 100
+
+Please extend the code in lectures/lecture-06-09/lambda3.py
+to handle the following language constructs and operators:
+
+| DElist_nil of () // HX: for nil-list
+| DElist_cons of (dexp, dexp) // for cons-list
+
+Please support the following operators (as OP1s)
+1. list_nilq (testing if a list is nil)
+2. list_head (returning the head of a non-nil list)
+3. list_tail (returning the tail of a non-nil list)
+
+In particular, you need to produce a running version
+of [dexp_evalenv] that can handle the evaluation of lists.
+
+######
+#
+# Task 2
+#
+######
+
+Total points: 20+20=40
+
+Please TRANSLATE the following function into LAMBDA:
+
+(*
+
+The following ones are implemented as OP1s:
+
+def fnlist_nilq(xs):
+    return (xs.ctag == "nil")
+def fnlist_head(xs):
+    assert (xs.ctag == "cons")
+    return xs.arg1
+def fnlist_tail(xs):
+    assert (xs.ctag == "cons")
+    return xs.arg2
+
+HX-2026-06-10:
+[fnlist_nilq] is implemented as OP1
+(that is, operator with one argument). Also,
+[fnlist_head] and [fnlist_tail] are implemented as OP1s.
+
+*)
+
+The following two functions need to be translated
+into LAMBDA (dexp):
+
+def fnlist_tally(xs):
+  if fnlist_nilq(xs):
+    return 0
+  else:
+    return fnlist_hd(xs) + fnlist_tally(fnlist_tl(arg2))
+
+def fnlist_range1(n):
+  def loop(i, res):
+    if i >= n:
+      return res
+    else:
+      return loop(i+1, fnlist_cons(n-1-i, res))
+  return loop(0, fnlist_nil())
+
+Your translation should be correctly interpreted by
+[dexp_eval000].
+
+######
+#
+# Task 3
+#
+######
+
+Total points: 100
+
+In lectures/lecture-06-09, 'term' is declared for Church's
+pure lambda-calculus:
+
+# datatype term =
+# | TMvar of strn(*name*) // name
+# | TMlam of (strn, term) // abstraction
+# | TMapp of (term, term) // application
+
+See Quiz01 and Quiz02 for translating various constructs in
+LAMBDA into pure lambda-terms.
+
+def dexp_translt(dex: dexp) -> term:
+  """
+  HX: Please translate a dexp into a term
+  """
+
+Your implementation of dexp_translt is expected to
+handle the translation of 'fnlist_tally(fnlist_range1(10))';
+the result of this translation is a lambda-term, which
+can be evaluated by 'term_normlz' to the Church numeral
+representing the integer 45 (= 0+1+2+3+4+5+6+7+8+9).
+
+############################################################

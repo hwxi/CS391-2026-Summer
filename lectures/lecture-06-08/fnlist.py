@@ -18,10 +18,12 @@ class fnlist_cons(fnlist):
         self.arg1 = arg1
         self.arg2 = arg2
 
-def fnlist_hd(xs):
+def fnlist_nilq(xs):
+    return (xs.ctag == "nil")
+def fnlist_head(xs):
     assert (xs.ctag == "cons")
     return xs.arg1
-def fnlist_tl(xs):
+def fnlist_tail(xs):
     assert (xs.ctag == "cons")
     return xs.arg2
 
