@@ -72,12 +72,106 @@ class DVLreg(ABC):
     arg1: treg
     pass
 ##################################################################
-# datatype tcmp =
-# | TCMP of (list(tins), treg(*res*))
+#
+# datatype dins =
+# | INSmov of (treg(*dst*), tval(*src*))
+# | INSapp of (treg(*res*), treg(*fun*), treg(*arg*))
+# | INSop1 of (treg(*res*), strn(*opr*), treg(*arg*))
+# | INSop2 of (treg(*res*), strn(*opr*), treg(*ag1*), treg(*ag2*))
+# | INSfun of (treg(*f00*), treg(*x01*), dcmp(*body*))
+# | INSif0 of (treg(*res*), treg(*test*), dcmp(*then*), dcmp(*else*))
+#
+type dins = INS000 \
+    | INSmov | INSapp \
+    | INSop1 | INSop2 \
+    | INSfun | INSif0
+@dataclass
+class INS000(ABC):
+    pass
+# | INSmov of (treg(*dst*), tval(*src*))
+class INSmov(ABC):
+    arg1: treg
+    arg2: dval
+    pass
+# | INSapp of (treg(*res*), treg(*fun*), treg(*arg*))
+class INSapp(ABC):
+    arg1: treg
+    arg2: treg
+    arg3: treg
+    pass
+# | INSop1 of (treg(*res*), strn(*opr*), treg(*arg*))
+class INSop1(ABC):
+    arg1: treg
+    arg2: strn
+    arg3: treg
+    pass
+# | INSop2 of (treg(*res*), strn(*opr*), treg(*ag1*), treg(*ag2*))
+class INSop2(ABC):
+    arg1: treg
+    arg2: strn
+    arg3: treg
+    arg4: treg
+    pass
+# | INSfun of (treg(*f00*), treg(*x01*), dcmp(*body*))
+class INSfun(ABC):
+    arg1: treg
+    arg2: treg
+    arg3: dcmp
+    pass
+# | INSif0 of (treg(*res*), treg(*test*), dcmp(*then*), dcmp(*else*))
+class INSif0(ABC):
+    arg1: treg
+    arg2: treg
+    arg3: dcmp
+    arg4: dcmp
+    pass
+##################################################################
+# datatype dcmp =
+# | DCMP of (list(tins), treg(*res*))
 @dataclass
 class dcmp(ABC):
-    dres: dval
-    inss: list(tins)
+    dres: treg
+    inss: list[dins]
+##################################################################
+type xtenv = CENV000 | CENVnil | CENVcons
+@dataclass
+class CENV000(ABC):
+    pass    
+@dataclass
+class CENVnil(CENV000):
+    pass    
+@dataclass
+class CENVcons(CENV000):
+    arg1: dvar
+    arg2: treg
+    arg3: xtenv
+    pass    
+##################################################################
+
+def \
+xtenv_search\
+(xts: xtenv, dx0: dvar) -> treg:
+    while True:
+        if isinstance(xts, CENVnil):
+            raise ValueError()
+        if isinstance(xts, CENVcons):
+            if dx0 == xts.arg1:
+                return xts.arg2
+            else:
+                xts = xts.arg3; continue
+        raise TypeError(xts) # HX-2026-06-09: should be deadcode!    
+
+##################################################################
+
+def \
+dexp_comp000(dex: dexp) -> dcmp:
+    return dexp_compenv(dex, CENVnil())
+
+def \
+dexp_compenv\
+(dex: dexp, cenv: xtenv) -> dcmp:
+    raise ValueError("dexp_compenv")
+
 ##################################################################
 # end of [CS391-2026-Summer/lectures/lecture-06-09/lambda4.py]
 ##################################################################

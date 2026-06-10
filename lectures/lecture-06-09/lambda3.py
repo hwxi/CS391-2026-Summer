@@ -182,10 +182,10 @@ class VALfix(VAL000):
 class ENV000(ABC):
     pass    
 @dataclass
-class ENVnil(ABC):
+class ENVnil(ENV000):
     pass    
 @dataclass
-class ENVcons(ABC):
+class ENVcons(ENV000):
     arg1: dvar
     arg2: value
     arg3: xvenv
