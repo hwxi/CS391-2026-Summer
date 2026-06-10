@@ -89,23 +89,27 @@ type dins = INS000 \
 class INS000(ABC):
     pass
 # | INSmov of (treg(*dst*), tval(*src*))
+@dataclass
 class INSmov(ABC):
     arg1: treg
     arg2: dval
     pass
 # | INSapp of (treg(*res*), treg(*fun*), treg(*arg*))
+@dataclass
 class INSapp(ABC):
     arg1: treg
     arg2: treg
     arg3: treg
     pass
 # | INSop1 of (treg(*res*), strn(*opr*), treg(*arg*))
+@dataclass
 class INSop1(ABC):
     arg1: treg
     arg2: strn
     arg3: treg
     pass
 # | INSop2 of (treg(*res*), strn(*opr*), treg(*ag1*), treg(*ag2*))
+@dataclass
 class INSop2(ABC):
     arg1: treg
     arg2: strn
@@ -113,12 +117,14 @@ class INSop2(ABC):
     arg4: treg
     pass
 # | INSfun of (treg(*f00*), treg(*x01*), dcmp(*body*))
+@dataclass
 class INSfun(ABC):
     arg1: treg
     arg2: treg
     arg3: dcmp
     pass
 # | INSif0 of (treg(*res*), treg(*test*), dcmp(*then*), dcmp(*else*))
+@dataclass
 class INSif0(ABC):
     arg1: treg
     arg2: treg
@@ -170,7 +176,87 @@ dexp_comp000(dex: dexp) -> dcmp:
 def \
 dexp_compenv\
 (dex: dexp, cenv: xtenv) -> dcmp:
-    raise ValueError("dexp_compenv")
+    dvl0: dval
+    ins0: dins
+    if isinstance(dex, DEint):
+        ttmp = ttmp_new()
+        dvl0 = DVLint(dex.arg1)
+        ins0 = INSmov(ttmp, dvl0)
+        return dcmp(ttmp, [ins0])
+    if isinstance(dex, DEbtf):
+        ttmp = ttmp_new()
+        dvl0 = DVLbtf(dex.arg1)
+        ins0 = INSmov(ttmp, dvl0)
+        return dcmp(ttmp, [ins0])
+    if isinstance(dex, DEstr):
+        ttmp = ttmp_new()
+        dvl0 = DVLstr(dex.arg1)
+        ins0 = INSmov(ttmp, dvl0)
+        return dcmp(ttmp, [ins0])
+    if isinstance(dex, DElam):
+        dx0 = dex.arg1
+        tfun = tfun_new()
+        targ = targ_new()
+        cenv = CENVcons(dx0, targ, cenv)
+        cmp1 = dexp_compenv(dex.arg2, cenv)
+        ins0 = INSfun(tfun, targ, cmp1)
+        return dcmp(dres=tfun, inss=[ins0])
+    if isinstance(dex, DEfix):
+        df0 = dex.arg1
+        dx0 = dex.arg2
+        tfun = tfun_new()
+        targ = targ_new()
+        cenv = CENVcons(df0, tfun, cenv)
+        cenv = CENVcons(dx0, targ, cenv)
+        cmp1 = dexp_compenv(dex.arg3, cenv)
+        ins0 = INSfun(tfun, targ, cmp1)
+        return dcmp(dres=tfun, inss=[ins0])
+    if isinstance(dex, DEapp):
+        cmp1 = dexp_compenv(dex.arg1, cenv)
+        cmp2 = dexp_compenv(dex.arg2, cenv)
+        tmp1 = cmp1.dres
+        ins1 = cmp1.inss
+        tmp2 = cmp2.dres
+        ins2 = cmp2.inss
+        ttmp = ttmp_new()
+        ins0 = INSapp(ttmp, tmp1, tmp2)
+        inss = ins1 + ins2 + [ins0]
+        return dcmp(dres=ttmp, inss=inss)
+    if isinstance(dex, DEif0):
+        cmp1 = dexp_compenv(dex.arg1, cenv) # test
+        cmp2 = dexp_compenv(dex.arg2, cenv) # then
+        cmp3 = dexp_compenv(dex.arg3, cenv) # else
+        tmp1 = cmp1.dres
+        ins1 = cmp1.inss
+        ttmp = ttmp_new()
+        ins0 = INSif0(ttmp, tmp1, cmp2, cmp3)
+        inss = ins1 + [ins0]
+        return dcmp(dres=ttmp, inss=inss)
+    if isinstance(dex, DEop1):
+        pnm = dex.arg1
+        ag1 = dex.arg2
+        cmp1 = dexp_compenv(ag1, cenv)
+        tmp1 = cmp1.dres
+        ins1 = cmp1.inss
+        ttmp = ttmp_new()
+        ins0 = INSop1(ttmp, pnm, tmp1)
+        inss = ins1 + ins2 + [ins0]
+        return dcmp(dres=ttmp, inss=inss)
+    if isinstance(dex, DEop2):
+        pnm = dex.arg1
+        ag1 = dex.arg2
+        ag2 = dex.arg3
+        cmp1 = dexp_compenv(ag1, cenv)
+        cmp2 = dexp_compenv(ag2, cenv)
+        tmp1 = cmp1.dres
+        ins1 = cmp1.inss
+        tmp2 = cmp2.dres
+        ins2 = cmp2.inss
+        ttmp = ttmp_new()
+        ins0 = INSop2(ttmp, pnm, tmp1, tmp2)
+        inss = ins1 + ins2 + [ins0]
+        return dcmp(dres=ttmp, inss=inss)
+    raise ValueError("dexp_compenv: " + repr(dex))
 
 ##################################################################
 # end of [CS391-2026-Summer/lectures/lecture-06-09/lambda4.py]
