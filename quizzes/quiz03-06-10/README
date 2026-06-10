@@ -1,5 +1,13 @@
+############################################################
 
 Quiz03's theme is programming with disjoint unions.
+Please provide a README file stating clearly and briefly
+what your submitted work is about.
+
+What is your idea? Have you tested? Does it actually work? 
+
+############################################################
+
 In lectures/lecture-06-08/fnlist.py, we have the following
 implementation of functional list:
 
@@ -174,4 +182,5 @@ the result of this translation is a lambda-term, which
 can be evaluated by 'term_normlz' to the Church numeral
 representing the integer 45 (= 0+1+2+3+4+5+6+7+8+9).
 
+############################################################
 ############################################################
