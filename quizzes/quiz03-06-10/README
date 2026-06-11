@@ -31,13 +31,13 @@ fnlist is a disjoint union of fnlist_nil and fnlist_cons.
 We can introduce the following language constructs to support
 functional lists in LAMBDA:
 
-| DElist_nil of () // HX: for nil-list
-| DElist_cons of (dexp, dexp) // for cons-list
+# | DElist_nil of () // HX: for nil-list
+# | DElist_cons of (dexp, dexp) // for cons-list
 
 Accordingly, we need additional forms of values:
 
-| VALlist_nil of () // HX: for nil-list
-| VALlist_cons of (value, value) // HX: for cons-list
+# | VALlist_nil of () // HX: for nil-list
+# | VALlist_cons of (value, value) // HX: for cons-list
 
 Also, we need the following functions to be implemented
 as OP1s (that is, operators with one argument):
@@ -94,8 +94,8 @@ Total points: 100
 Please extend the code in lectures/lecture-06-09/lambda3.py
 to handle the following language constructs and operators:
 
-| DElist_nil of () // HX: for nil-list
-| DElist_cons of (dexp, dexp) // for cons-list
+# | DElist_nil of () // HX: for nil-list
+# | DElist_cons of (dexp, dexp) // for cons-list
 
 Please support the following operators (as OP1s)
 1. list_nilq (testing if a list is nil)
@@ -132,6 +132,13 @@ HX-2026-06-10:
 [fnlist_nilq] is implemented as OP1
 (that is, operator with one argument). Also,
 [fnlist_head] and [fnlist_tail] are implemented as OP1s.
+
+dexp_fnlist_nilq =
+DElam("xs", dexp_op1("list_nilq", DEvar("xs")))
+dexp_fnlist_head =
+DElam("xs", dexp_op1("list_head", DEvar("xs")))
+dexp_fnlist_tail =
+DElam("xs", dexp_op1("list_tail", DEvar("xs")))
 
 *)
 

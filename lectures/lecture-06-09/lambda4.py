@@ -21,6 +21,8 @@ class treg(ABC):
     the_nfun = 100
     prfx: strn
     sffx: sint
+    def __repr__(self):
+        return ("treg(" + self.prfx + str(self.sffx) + ")")
     pass
 def targ_new():
     treg.the_narg += 1
@@ -45,8 +47,7 @@ def tfun_new():
 ##################################################################
 #
 type dval = DVL000 \
-    | DVLint | DVLbtf \
-    | DVLstr | DVLreg \
+    | DVLint | DVLbtf | DVLstr
 #
 # datatype dval =
 # | DVint of sint | DVbtf of bool
@@ -58,23 +59,25 @@ class DVL000(ABC):
 @dataclass
 class DVLint(ABC):
     arg1: sint
+    def __repr__(self):
+        return ("DVLint(" + repr(self.arg1) + ")")
     pass
 @dataclass
 class DVLbtf(ABC):
     arg1: bool
+    def __repr__(self):
+        return ("DVLbtf(" + repr(self.arg1) + ")")
     pass
 @dataclass
 class DVLstr(ABC):
     arg1: strn
-    pass
-@dataclass
-class DVLreg(ABC):
-    arg1: treg
+    def __repr__(self):
+        return ("DVLstr('" + repr(self.arg1) + "')")
     pass
 ##################################################################
 #
 # datatype dins =
-# | INSmov of (treg(*dst*), tval(*src*))
+# | INSmov of (treg(*dst*), dval(*src*))
 # | INSapp of (treg(*res*), treg(*fun*), treg(*arg*))
 # | INSop1 of (treg(*res*), strn(*opr*), treg(*arg*))
 # | INSop2 of (treg(*res*), strn(*opr*), treg(*ag1*), treg(*ag2*))
@@ -85,10 +88,19 @@ type dins = INS000 \
     | INSmov | INSapp \
     | INSop1 | INSop2 \
     | INSfun | INSif0
+##################################################################
+# datatype dcmp =
+# | DCMP of (treg(*res*), list(dins))
+@dataclass
+class dcmp(ABC):
+    dres: treg
+    inss: list[dins]
+    pass
+##################################################################
 @dataclass
 class INS000(ABC):
     pass
-# | INSmov of (treg(*dst*), tval(*src*))
+# | INSmov of (treg(*dst*), dval(*src*))
 @dataclass
 class INSmov(ABC):
     arg1: treg
@@ -116,6 +128,7 @@ class INSop2(ABC):
     arg3: treg
     arg4: treg
     pass
+##################################################################
 # | INSfun of (treg(*f00*), treg(*x01*), dcmp(*body*))
 @dataclass
 class INSfun(ABC):
@@ -131,13 +144,6 @@ class INSif0(ABC):
     arg3: dcmp
     arg4: dcmp
     pass
-##################################################################
-# datatype dcmp =
-# | DCMP of (list(tins), treg(*res*))
-@dataclass
-class dcmp(ABC):
-    dres: treg
-    inss: list[dins]
 ##################################################################
 type xtenv = CENV000 | CENVnil | CENVcons
 @dataclass
@@ -193,6 +199,9 @@ dexp_compenv\
         dvl0 = DVLstr(dex.arg1)
         ins0 = INSmov(ttmp, dvl0)
         return dcmp(ttmp, [ins0])
+    if isinstance(dex, DEvar):
+        treg = xtenv_search(cenv, dex.arg1)
+        return dcmp(treg, [    ])
     if isinstance(dex, DElam):
         dx0 = dex.arg1
         tfun = tfun_new()
@@ -257,6 +266,97 @@ dexp_compenv\
         inss = ins1 + ins2 + [ins0]
         return dcmp(dres=ttmp, inss=inss)
     raise ValueError("dexp_compenv: " + repr(dex))
+
+##################################################################
+
+def endl_emit000():
+    strn_emit000("\n")
+
+def strn_emit000(strn):
+    print(strn, end='')
+
+def dval_emit000(dval):
+    strn_emit000(repr(dval))
+
+def treg_emit000(treg):
+    strn_emit000(treg.prfx)
+    strn_emit000(repr(treg.sffx))
+
+def nind_emit000(nind):
+    for _ in range(nind): strn_emit000(" ")
+
+def opnm_emit000(opnm):
+    if (opnm == "+"):
+        strn_emit000("DINSADD"); return
+    if (opnm == "-"):
+        strn_emit000("DINSSUB"); return
+    if (opnm == "*"):
+        strn_emit000("DINSMUL"); return
+    if (opnm == "/"):
+        strn_emit000("DINSDIV"); return
+    if (opnm == "%"):
+        strn_emit000("DINSMOD"); return
+    if (opnm == "<"):
+        strn_emit000("DINSILT"); return
+    if (opnm == ">"):
+        strn_emit000("DINSIGT"); return
+    if (opnm == "<="):
+        strn_emit000("DINSILE"); return
+    if (opnm == ">="):
+        strn_emit000("DINSIGE"); return
+    raise TypeError(opnm) # HX-2025-06-24: unsupported!
+
+##################################################################
+
+def dins_emit000(dins, nind):
+    nind_emit000(nind)
+    if isinstance(dins, INSmov):
+        treg_emit000(dins.arg1)
+        strn_emit000("=")
+        dval_emit000(dins.arg2); endl_emit000()
+        return
+    if isinstance(dins, INSapp):
+        treg_emit000(dins.arg1)
+        strn_emit000("=")
+        treg_emit000(dins.arg2); strn_emit000("(")
+        treg_emit000(dins.arg3); strn_emit000(")"); endl_emit000()
+        return
+    if isinstance(dins, INSop1):
+        treg_emit000(dins.arg1); strn_emit000("=")
+        opnm_emit000(dins.arg2); strn_emit000("(")
+        treg_emit000(dins.arg3); strn_emit000(")"); endl_emit000()
+        return
+    if isinstance(dins, INSop2):
+        treg_emit000(dins.arg1); strn_emit000("=")
+        opnm_emit000(dins.arg2); strn_emit000("(");
+        treg_emit000(dins.arg3); strn_emit000(",");
+        treg_emit000(dins.arg4); strn_emit000(")"); endl_emit000()
+        return
+    if isinstance(dins, INSfun):
+        body = dins.arg3
+        strn_emit000("def ")
+        treg_emit000(dins.arg1); strn_emit000("(")
+        treg_emit000(dins.arg2); strn_emit000("):"); endl_emit000()
+        dinslst_emit000(body.inss, nind+2)
+        nind_emit000(nind+2); strn_emit000("return "); treg_emit000(body.dres); endl_emit000()
+        return
+    if isinstance(dins, INSif0):
+        cthn = dins.arg3
+        cels = dins.arg4
+        treg_emit000(dins.arg1); strn_emit000("="); strn_emit000("None"); endl_emit000()
+        nind_emit000(nind)
+        strn_emit000("if ("); treg_emit000(dins.arg2); strn_emit000("):"); endl_emit000()
+        dinslst_emit000(cthn.inss, nind+2)
+        nind_emit000(nind+2); treg_emit000(dins.arg1); strn_emit000("="); treg_emit000(cthn.dres); endl_emit000()
+        nind_emit000(nind); strn_emit000("else:"); endl_emit000()
+        dinslst_emit000(cels.inss, nind+2)
+        nind_emit000(nind+2); treg_emit000(dins.arg1); strn_emit000("="); treg_emit000(cels.dres); endl_emit000()
+        return
+    # HX: please finish the rest of the cases
+    raise TypeError(dins) # HX-2025-06-24: should be deadcode!    
+
+def dinslst_emit000(inss, nind):
+    for dins in inss: dins_emit000(dins, nind)
 
 ##################################################################
 # end of [CS391-2026-Summer/lectures/lecture-06-09/lambda4.py]
