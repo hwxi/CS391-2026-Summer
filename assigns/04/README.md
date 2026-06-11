@@ -19,8 +19,8 @@ Please see some related testing code in lambda4_test.py.
 
 ## Description of the task
 
-The LAMBDA programming language now has the following
-language constructs.
+The LAMBDA programming language has been "finalized" for this
+class; it contains the following language constructs:
 
 ```
 datatype dexp =
@@ -64,8 +64,12 @@ datatype dexp =
 | DEarry_size$fun of (dexp(*size*), dexp(*fun*))
 ```
 
-Your task is to extend lambda3.py and lambda4.py with code
-that handles the following ones:
+Please find lambda3.py and lambda4.py in lectures/lecture-06-09.
+Your task for Assign04 is to extend dexp_evalenv (lambda3.py)
+and dexp_compenv (lambda4.py) with code that handles the following
+language constructs. Also, dins_emit000 (lambda4.py) needs to be
+extended as well for the purpose of code emission.
+
 ```
 //
 // For lists (50 points)
@@ -92,6 +96,9 @@ I expect that you submission can compile successfully:
 1: fact and fact2
 2: 8-queen puzzle (assign03)
 3: fnlist_tally/fnlist_range1 (Quiz03)
+
+I hope this experience of building a compiler for LAMBDA
+excites you!
 
 ## Submission
 
