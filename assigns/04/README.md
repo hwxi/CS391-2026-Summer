@@ -4,8 +4,9 @@
 
 In lectures/lecture-06-09, we covered the topic of
 code emission. The following function is for compiling
-a dynamic expression (dexp) into a dynamic computation
-(which consists of a sequence of instructions plus a treg)
+a dynamic expression (dexp) into a dynamic computation,
+which consists of a sequence of instructions plus a temporary
+register (treg) for holding the result of the computation.
 
 def dexp_comp000(dex: dexp) -> dcmp: ...
 
@@ -21,6 +22,7 @@ Please see some related testing code in lambda4_test.py.
 The LAMBDA programming language now has the following
 language constructs.
 
+```
 datatype dexp =
 //
 | DEint of sint
@@ -60,9 +62,11 @@ datatype dexp =
 //
 | DEarry_size$val of (dexp(*size*), dexp(*val*))
 | DEarry_size$fun of (dexp(*size*), dexp(*fun*))
+```
 
 Your task is to extend lambda3.py and lambda4.py with code
 that handles the following ones:
+```
 //
 // For lists (50 points)
 // You need the following operators:
@@ -82,6 +86,7 @@ that handles the following ones:
 // arrays?
 | DEarry_size$val of (dexp(*size*), dexp(*val*))
 | DEarry_size$fun of (dexp(*size*), dexp(*fun*))
+```
 
 I expect that you submission can compile successfully:
 1: fact and fact2
