@@ -24,6 +24,9 @@ class ST000(ABC):
 class STbas(ST000):
     arg1: strn
     pass
+class STxyz(ST000):
+    arg1: styp
+    pass
 class STfun(ST000):
     arg1: styp
     arg2: styp
@@ -113,6 +116,7 @@ class DElet(DE000):
     arg2: dexp
     arg3: dexp
     pass
+##################################################################
 @dataclass
 class DElam1(DE000):
     arg1: dvar
@@ -127,8 +131,38 @@ class DEfix1(DE000):
     arg4: dexp
     arg5: styp
     pass
+@dataclass
+class DEanno(DE000):
+    arg1: dexp
+    arg2: styp
+    pass
 ##################################################################
+type xtenv = SCTX000
 ##################################################################
-# end of [CS391-2026-Summer/lectures/lecture-06-09/lambda3.py]
+@dataclass
+class SCTX000(ABC):
+    pass    
+@dataclass
+class SCTXnil(SCTX000):
+    pass    
+@dataclass
+class SCTXcons(SCTX000):
+    arg1: dvar
+    arg2: treg
+    arg3: xtenv
+    pass    
+##################################################################
+
+def \
+dexp_oftp000(dex: dexp): styp
+    return dexp_oftpenv(dex, SCTXnil())
+
+def \
+dexp_oftpenv
+(dex: dexp, sctx: xtctx): styp
+    return dexp_oftpenv(dex, SCTXnil())
+
+##################################################################
+# end of [CS391-2026-Summer/lectures/lecture-06-09/lambda5.py]
 ##################################################################
 ##################################################################

@@ -46,38 +46,38 @@ def tfun_new():
 # print("myfun2 = " + repr(myfun2))
 ##################################################################
 #
-type dval = DVL000
+type pval = PVL000
 #
-# datatype dval =
-# | DVLint of sint
-# | DVLbtf of bool
-# | DVLstr of strn
+# datatype pval =
+# | PVLint of sint
+# | PVLbtf of bool
+# | PVLstr of strn
 #
 @dataclass
-class DVL000(ABC):
+class PVL000(ABC):
     pass
 @dataclass
-class DVLint(DVL000):
+class PVLint(PVL000):
     arg1: sint
     def __repr__(self):
-        return ("DVLint(" + repr(self.arg1) + ")")
+        return ("PVLint(" + repr(self.arg1) + ")")
     pass
 @dataclass
-class DVLbtf(DVL000):
+class PVLbtf(PVL000):
     arg1: bool
     def __repr__(self):
-        return ("DVLbtf(" + repr(self.arg1) + ")")
+        return ("PVLbtf(" + repr(self.arg1) + ")")
     pass
 @dataclass
-class DVLstr(DVL000):
+class PVLstr(PVL000):
     arg1: strn
     def __repr__(self):
-        return ("DVLstr('" + repr(self.arg1) + "')")
+        return ("PVLstr('" + repr(self.arg1) + "')")
     pass
 ##################################################################
 #
 # datatype dins =
-# | INSmov of (treg(*dst*), dval(*src*))
+# | INSmov of (treg(*dst*), pval(*src*))
 # | INSapp of (treg(*res*), treg(*fun*), treg(*arg*))
 # | INSop1 of (treg(*res*), strn(*opr*), treg(*arg*))
 # | INSop2 of (treg(*res*), strn(*opr*), treg(*ag1*), treg(*ag2*))
@@ -97,11 +97,11 @@ class dcmp(ABC):
 @dataclass
 class INS000(ABC):
     pass
-# | INSmov of (treg(*dst*), dval(*src*))
+# | INSmov of (treg(*dst*), pval(*src*))
 @dataclass
 class INSmov(INS000):
     arg1: treg
-    arg2: dval
+    arg2: pval
     pass
 # | INSapp of
 # (treg(*res*), treg(*fun*), treg(*arg*))
@@ -185,21 +185,21 @@ dexp_comp000(dex: dexp) -> dcmp:
 def \
 dexp_compenv\
 (dex: dexp, cenv: xtenv) -> dcmp:
-    dvl0: dval
+    dvl0: pval
     ins0: dins
     if isinstance(dex, DEint):
         ttmp = ttmp_new()
-        dvl0 = DVLint(dex.arg1)
+        dvl0 = PVLint(dex.arg1)
         ins0 = INSmov(ttmp, dvl0)
         return dcmp(ttmp, [ins0])
     if isinstance(dex, DEbtf):
         ttmp = ttmp_new()
-        dvl0 = DVLbtf(dex.arg1)
+        dvl0 = PVLbtf(dex.arg1)
         ins0 = INSmov(ttmp, dvl0)
         return dcmp(ttmp, [ins0])
     if isinstance(dex, DEstr):
         ttmp = ttmp_new()
-        dvl0 = DVLstr(dex.arg1)
+        dvl0 = PVLstr(dex.arg1)
         ins0 = INSmov(ttmp, dvl0)
         return dcmp(ttmp, [ins0])
     if isinstance(dex, DEvar):
@@ -278,8 +278,8 @@ def endl_emit000():
 def strn_emit000(strn):
     print(strn, end='')
 
-def dval_emit000(dval):
-    strn_emit000(repr(dval))
+def pval_emit000(pval):
+    strn_emit000(repr(pval))
 
 def treg_emit000(treg):
     strn_emit000(treg.prfx)
@@ -318,7 +318,7 @@ dins_emit000\
     if isinstance(dins, INSmov):
         treg_emit000(dins.arg1)
         strn_emit000("=")
-        dval_emit000(dins.arg2); endl_emit000()
+        pval_emit000(dins.arg2); endl_emit000()
         return
     if isinstance(dins, INSapp):
         treg_emit000(dins.arg1)

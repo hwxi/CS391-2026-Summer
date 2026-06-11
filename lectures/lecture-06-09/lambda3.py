@@ -135,37 +135,37 @@ class DElet(DE000):
     arg3: dexp
     pass
 ##################################################################
-type value = VAL000
+type dval = DV000
 ##################################################################
 type xvenv = ENV000
 ##################################################################
 @dataclass
-class VAL000(ABC):
+class DV000(ABC):
     pass    
 @dataclass
-class VALint(VAL000):
+class DVint(DV000):
     arg1: sint
     pass
 @dataclass
-class VALbtf(VAL000):
+class DVbtf(DV000):
     arg1: bool
     pass
 @dataclass
-class VALstr(VAL000):
+class DVstr(DV000):
     arg1: strn
     pass
 @dataclass
-class VALtup(VAL000):
-    arg1: value
-    arg2: value
+class DVtup(DV000):
+    arg1: dval
+    arg2: dval
     pass
 @dataclass
-class VALlam(VAL000):
+class DVlam(DV000):
     arg1: DElam
     arg2: xvenv
     pass
 @dataclass
-class VALfix(VAL000):
+class DVfix(DV000):
     arg1: DEfix
     arg2: xvenv
     pass
@@ -179,16 +179,16 @@ class ENVnil(ENV000):
 @dataclass
 class ENVcons(ENV000):
     arg1: dvar
-    arg2: value
+    arg2: dval
     arg3: xvenv
     pass    
 ##################################################################
 def \
 xvenv_search\
-(xvs: xvenv, dx0: dvar) -> value:
+(xvs: xvenv, dx0: dvar) -> dval:
     while True:
         if isinstance(xvs, ENVnil):
-            return VAL000()
+            return DV000()
         if isinstance(xvs, ENVcons):
             if dx0 == xvs.arg1:
                 return xvs.arg2
@@ -201,140 +201,140 @@ def dexp_eval000(dex: dexp):
     return dexp_evalenv(dex, ENVnil())
 
 def dop1_eval\
-(opr: strn, vl1: value) -> value:
+(opr: strn, dv1: dval) -> dval:
     if (opr == "-"):
-        assert isinstance(vl1, VALint)
-        return VALint(   -(vl1.arg1)   )
+        assert isinstance(dv1, DVint)
+        return DVint(   -(dv1.arg1)   )
     if (opr == "print"):
-        if isinstance(vl1, VALint):
-            print(vl1.arg1, end='')
-            return VALint(      0      )
-        elif isinstance(vl1, VALbtf):
-            print(vl1.arg1, end='')
-            return VALint(      0      )
-        elif isinstance(vl1, VALstr):
-            print(vl1.arg1, end='')
-            return VALint(      0      )
-        elif isinstance(vl1, VALlam):
-            print("VALlam(...)", end='')
-            return VALint(      0      )
-        elif isinstance(vl1, VALfix):
-            print("VALfix(...)", end='')
-            return VALint(      0      )
+        if isinstance(dv1, DVint):
+            print(dv1.arg1, end='')
+            return DVint(      0      )
+        elif isinstance(dv1, DVbtf):
+            print(dv1.arg1, end='')
+            return DVint(      0      )
+        elif isinstance(dv1, DVstr):
+            print(dv1.arg1, end='')
+            return DVint(      0      )
+        elif isinstance(dv1, DVlam):
+            print("DVlam(...)", end='')
+            return DVint(      0      )
+        elif isinstance(dv1, DVfix):
+            print("DVfix(...)", end='')
+            return DVint(      0      )
         else:
-            print(vl1, end=''); return VALint(0)
+            print(dv1, end=''); return DVint(0)
     raise TypeError(opr) # HX-2026-06-09: dop1_eval(...)
 
 def dop2_eval\
-(opr: strn, vl1: value, vl2: value) -> value:
+(opr: strn, dv1: dval, dv2: dval) -> dval:
     if (opr == "+"):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALint(vl1.arg1 + vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVint(dv1.arg1 + dv2.arg1)
     if (opr == "-"):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALint(vl1.arg1 - vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVint(dv1.arg1 - dv2.arg1)
     if (opr == "*"):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALint(vl1.arg1 * vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVint(dv1.arg1 * dv2.arg1)
     if (opr == "%"):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALint(vl1.arg1 % vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVint(dv1.arg1 % dv2.arg1)
     if (opr == "/"):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALint(vl1.arg1 // vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVint(dv1.arg1 // dv2.arg1)
     if (opr == "<"):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALbtf(vl1.arg1 < vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVbtf(dv1.arg1 < dv2.arg1)
     if (opr == ">"):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALbtf(vl1.arg1 > vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVbtf(dv1.arg1 > dv2.arg1)
     if (opr == "<="):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALbtf(vl1.arg1 <= vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVbtf(dv1.arg1 <= dv2.arg1)
     if (opr == ">="):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALbtf(vl1.arg1 >= vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVbtf(dv1.arg1 >= dv2.arg1)
     if (opr == "=="):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALbtf(vl1.arg1 == vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVbtf(dv1.arg1 == dv2.arg1)
     if (opr == "!="):
-        assert isinstance(vl1, VALint)
-        assert isinstance(vl2, VALint)
-        return VALbtf(vl1.arg1 != vl2.arg1)
+        assert isinstance(dv1, DVint)
+        assert isinstance(dv2, DVint)
+        return DVbtf(dv1.arg1 != dv2.arg1)
     raise TypeError(opr) # HX-2026-06-09: dop2_eval(...)
 
-def dexp_evalenv(dex: dexp, env0: xvenv) -> value:
+def dexp_evalenv(dex: dexp, env0: xvenv) -> dval:
     if isinstance(dex, DEint):
-        return VALint(dex.arg1)
+        return DVint(dex.arg1)
     if isinstance(dex, DEbtf):
-        return VALbtf(dex.arg1)
+        return DVbtf(dex.arg1)
     if isinstance(dex, DEstr):
-        return VALstr(dex.arg1)
+        return DVstr(dex.arg1)
     if isinstance(dex, DElam):
-        return VALlam(dex, env0)
+        return DVlam(dex, env0)
     if isinstance(dex, DEfix):
-        return VALfix(dex, env0)
+        return DVfix(dex, env0)
     if isinstance(dex, DEvar):
         return \
             xvenv_search(env0, dex.arg1)
     if isinstance(dex, DEapp):
-        vl1 = dexp_evalenv(dex.arg1, env0)
-        vl2 = dexp_evalenv(dex.arg2, env0)
-        if isinstance(vl1, VALlam):
-            vl1_dlam = vl1.arg1
-            vl1_env0 = vl1.arg2
-            vl1_dvar = vl1_dlam.arg1
-            vl1_body = vl1_dlam.arg2
-            vl1_env1 = \
-                ENVcons(vl1_dvar, vl2, vl1_env0)
-            return dexp_evalenv(vl1_body, vl1_env1)
-        if isinstance(vl1, VALfix):
-            vl1_dfix = vl1.arg1
-            vl1_env0 = vl1.arg2
-            vl1_dfun = vl1_dfix.arg1
-            vl1_dvar = vl1_dfix.arg2
-            vl1_body = vl1_dfix.arg3
-            vl1_env1 = \
-                ENVcons(vl1_dfun, vl1, vl1_env0)
-            vl1_env2 = \
-                ENVcons(vl1_dvar, vl2, vl1_env1)
-            return dexp_evalenv(vl1_body, vl1_env2)
-        raise TypeError(vl1) # HX-2026-06-09: non-function!
+        dv1 = dexp_evalenv(dex.arg1, env0)
+        dv2 = dexp_evalenv(dex.arg2, env0)
+        if isinstance(dv1, DVlam):
+            dv1_dlam = dv1.arg1
+            dv1_env0 = dv1.arg2
+            dv1_dvar = dv1_dlam.arg1
+            dv1_body = dv1_dlam.arg2
+            dv1_env1 = \
+                ENVcons(dv1_dvar, dv2, dv1_env0)
+            return dexp_evalenv(dv1_body, dv1_env1)
+        if isinstance(dv1, DVfix):
+            dv1_dfix = dv1.arg1
+            dv1_env0 = dv1.arg2
+            dv1_dfun = dv1_dfix.arg1
+            dv1_dvar = dv1_dfix.arg2
+            dv1_body = dv1_dfix.arg3
+            dv1_env1 = \
+                ENVcons(dv1_dfun, dv1, dv1_env0)
+            dv1_env2 = \
+                ENVcons(dv1_dvar, dv2, dv1_env1)
+            return dexp_evalenv(dv1_body, dv1_env2)
+        raise TypeError(dv1) # HX-2026-06-09: non-function!
     if isinstance(dex, DEtup):
-        vl1 = dexp_evalenv(dex.arg1, env0)
-        vl2 = dexp_evalenv(dex.arg2, env0)
-        return VALtup(vl1, vl2)
+        dv1 = dexp_evalenv(dex.arg1, env0)
+        dv2 = dexp_evalenv(dex.arg2, env0)
+        return DVtup(dv1, dv2)
     if isinstance(dex, DEfst):
         tup = dexp_evalenv(dex.arg1, env0)
-        if isinstance(tup, VALtup):
+        if isinstance(tup, DVtup):
             return tup.arg1
         else:
             raise TypeError(tup)
     if isinstance(dex, DEsnd):
         tup = dexp_evalenv(dex.arg1, env0)
-        if isinstance(tup, VALtup):
+        if isinstance(tup, DVtup):
             return tup.arg2
         else:
             raise TypeError(tup)
     if isinstance(dex, DEop2):
         opr = dex.arg1
-        vl1 = dexp_evalenv(dex.arg2, env0)
-        vl2 = dexp_evalenv(dex.arg3, env0)
-        return dop2_eval(opr, vl1, vl2)
+        dv1 = dexp_evalenv(dex.arg2, env0)
+        dv2 = dexp_evalenv(dex.arg3, env0)
+        return dop2_eval(opr, dv1, dv2)
     if isinstance(dex, DEif0):
-        vl1 = dexp_evalenv(dex.arg1, env0)
-        assert isinstance(vl1, VALbtf)
-        if vl1.arg1:
+        dv1 = dexp_evalenv(dex.arg1, env0)
+        assert isinstance(dv1, DVbtf)
+        if dv1.arg1:
             return dexp_evalenv(dex.arg2, env0)
         else:
             return dexp_evalenv(dex.arg3, env0)
@@ -342,8 +342,8 @@ def dexp_evalenv(dex: dexp, env0: xvenv) -> value:
         # let x = de1 in de2
         dx0 = dex.arg1
         de1 = dex.arg2
-        vl1 = dexp_evalenv(de1, env0)
-        env1 = ENVcons(dx0, vl1, env0)
+        dv1 = dexp_evalenv(de1, env0)
+        env1 = ENVcons(dx0, dv1, env0)
         return dexp_evalenv(dex.arg3, env1)
     raise TypeError(dex) # HX-2026-06-09: dexp_evalenv(...)
 
