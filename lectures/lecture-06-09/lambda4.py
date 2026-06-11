@@ -50,8 +50,9 @@ type dval = DVL000 \
     | DVLint | DVLbtf | DVLstr
 #
 # datatype dval =
-# | DVint of sint | DVbtf of bool
-# | DVstr of strn | DVreg of treg
+# | DVLint of sint
+# | DVLbtf of bool
+# | DVLstr of strn
 #
 @dataclass
 class DVL000(ABC):
@@ -308,7 +309,9 @@ def opnm_emit000(opnm):
 
 ##################################################################
 
-def dins_emit000(dins, nind):
+def \
+dins_emit000\
+(dins: dins, nind: sint) -> None:
     nind_emit000(nind)
     if isinstance(dins, INSmov):
         treg_emit000(dins.arg1)
@@ -355,7 +358,9 @@ def dins_emit000(dins, nind):
     # HX: please finish the rest of the cases
     raise TypeError(dins) # HX-2025-06-24: should be deadcode!    
 
-def dinslst_emit000(inss, nind):
+def \
+dinslst_emit000\
+(inss: list[dins], nind: sint) -> None:
     for dins in inss: dins_emit000(dins, nind)
 
 ##################################################################
