@@ -46,8 +46,7 @@ def tfun_new():
 # print("myfun2 = " + repr(myfun2))
 ##################################################################
 #
-type dval = DVL000 \
-    | DVLint | DVLbtf | DVLstr
+type dval = DVL000
 #
 # datatype dval =
 # | DVLint of sint
@@ -58,19 +57,19 @@ type dval = DVL000 \
 class DVL000(ABC):
     pass
 @dataclass
-class DVLint(ABC):
+class DVLint(DVL000):
     arg1: sint
     def __repr__(self):
         return ("DVLint(" + repr(self.arg1) + ")")
     pass
 @dataclass
-class DVLbtf(ABC):
+class DVLbtf(DVL000):
     arg1: bool
     def __repr__(self):
         return ("DVLbtf(" + repr(self.arg1) + ")")
     pass
 @dataclass
-class DVLstr(ABC):
+class DVLstr(DVL000):
     arg1: strn
     def __repr__(self):
         return ("DVLstr('" + repr(self.arg1) + "')")
@@ -85,10 +84,7 @@ class DVLstr(ABC):
 # | INSfun of (treg(*f00*), treg(*x01*), dcmp(*body*))
 # | INSif0 of (treg(*res*), treg(*test*), dcmp(*then*), dcmp(*else*))
 #
-type dins = INS000 \
-    | INSmov | INSapp \
-    | INSop1 | INSop2 \
-    | INSfun | INSif0
+type dins = INS000
 ##################################################################
 # datatype dcmp =
 # | DCMP of (treg(*res*), list(dins))
@@ -103,50 +99,56 @@ class INS000(ABC):
     pass
 # | INSmov of (treg(*dst*), dval(*src*))
 @dataclass
-class INSmov(ABC):
+class INSmov(INS000):
     arg1: treg
     arg2: dval
     pass
-# | INSapp of (treg(*res*), treg(*fun*), treg(*arg*))
+# | INSapp of
+# (treg(*res*), treg(*fun*), treg(*arg*))
 @dataclass
-class INSapp(ABC):
+class INSapp(INS000):
     arg1: treg
     arg2: treg
     arg3: treg
     pass
-# | INSop1 of (treg(*res*), strn(*opr*), treg(*arg*))
+# | INSop1 of
+# (treg(*res*), strn(*opr*), treg(*arg*))
 @dataclass
-class INSop1(ABC):
+class INSop1(INS000):
     arg1: treg
     arg2: strn
     arg3: treg
     pass
-# | INSop2 of (treg(*res*), strn(*opr*), treg(*ag1*), treg(*ag2*))
+# | INSop2 of
+# (treg(*res*), strn(*opr*), treg(*ag1*), treg(*ag2*))
 @dataclass
-class INSop2(ABC):
+class INSop2(INS000):
     arg1: treg
     arg2: strn
     arg3: treg
     arg4: treg
     pass
 ##################################################################
-# | INSfun of (treg(*f00*), treg(*x01*), dcmp(*body*))
+# | INSfun of
+# (treg(*f00*), treg(*x01*), dcmp(*body*))
 @dataclass
-class INSfun(ABC):
+class INSfun(INS000):
     arg1: treg
     arg2: treg
     arg3: dcmp
     pass
-# | INSif0 of (treg(*res*), treg(*test*), dcmp(*then*), dcmp(*else*))
+# | INSif0 of
+# (treg(*res*), treg(*test*), dcmp(*then*), dcmp(*else*))
 @dataclass
-class INSif0(ABC):
+class INSif0(INS000):
     arg1: treg
     arg2: treg
     arg3: dcmp
     arg4: dcmp
     pass
 ##################################################################
-type xtenv = CENV000 | CENVnil | CENVcons
+type xtenv = CENV000
+##################################################################
 @dataclass
 class CENV000(ABC):
     pass    

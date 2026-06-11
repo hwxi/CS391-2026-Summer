@@ -18,8 +18,7 @@ from dataclasses import dataclass
 # For Church's pure lambda-calculus
 #
 type tvar = strn
-type term = TM000 \
-    | TMvar | TMlam | TMapp \
+type term = TM000
 ##################################################################
 @dataclass
 class TM000(ABC):
@@ -62,12 +61,7 @@ term_subst0\
 ##################################################################
 ##################################################################
 type dvar = strn
-type dexp = DE000 \
-    | DEint | DEbtf | DEstr \
-    | DEvar | DElam | DEapp \
-    | DEop1 | DEop2 | DEif0 \
-    | DEfst | DEsnd | DEtup \
-    | DEfix | DElet
+type dexp = DE000
 ##################################################################
 @dataclass
 class DE000(ABC):
@@ -141,11 +135,9 @@ class DElet(DE000):
     arg3: dexp
     pass
 ##################################################################
-type value = VAL000 \
-    | VALint | VALbtf | VALstr \
-    | VALtup | VALlam | VALfix \
+type value = VAL000
 ##################################################################
-type xvenv = ENV000 | ENVnil | ENVcons
+type xvenv = ENV000
 ##################################################################
 @dataclass
 class VAL000(ABC):

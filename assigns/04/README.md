@@ -1,6 +1,6 @@
 # Assignment 4 for CS391X1, Summer I, 2026
 
-## Total points: 100
+## Total points: 250
 
 In lectures/lecture-06-09, we covered the topic of
 code emission. The following function is for compiling
