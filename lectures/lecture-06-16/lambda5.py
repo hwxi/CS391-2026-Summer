@@ -137,7 +137,7 @@ class DEanno(DE000):
     arg2: styp
     pass
 ##################################################################
-type xtenv = SCTX000
+type xtctx = SCTX000
 ##################################################################
 @dataclass
 class SCTX000(ABC):
@@ -148,19 +148,22 @@ class SCTXnil(SCTX000):
 @dataclass
 class SCTXcons(SCTX000):
     arg1: dvar
-    arg2: treg
-    arg3: xtenv
+    arg2: styp
+    arg3: xtctx
     pass    
 ##################################################################
 
-def \
-dexp_oftp000(dex: dexp): styp
-    return dexp_oftpenv(dex, SCTXnil())
+type stypopt = styp|None
+
+##################################################################
 
 def \
-dexp_oftpenv
-(dex: dexp, sctx: xtctx): styp
-    return dexp_oftpenv(dex, SCTXnil())
+dexp_oftp000(dex: dexp) -> stypopt:
+    return dexp_oftpctx(dex, SCTXnil())
+
+def \
+dexp_oftpctx(dex: dexp, ctx: xtctx) -> stypopt:
+    pass
 
 ##################################################################
 # end of [CS391-2026-Summer/lectures/lecture-06-09/lambda5.py]
