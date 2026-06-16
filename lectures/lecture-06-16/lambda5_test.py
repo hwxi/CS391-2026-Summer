@@ -6,25 +6,10 @@
 #
 ##################################################################
 import sys
-sys.setrecursionlimit(10000)
 ##################################################################
 from lambda5 import *
 ##################################################################
-TM_f = TMvar("f")
-TM_i = TMvar("i")
-TM_n = TMvar("n")
-TM_x = TMvar("x")
-TM_y = TMvar("y")
-TM_z = TMvar("z")
-##################################################################
-TM_I = TMlam("x", TM_x)
-TM_K = TMlam("x", TMlam("y", TM_x))
-TM_S = TMlam("x", TMlam("y", TMlam("z", TMapp(TMapp(TM_x, TM_z), TMapp(TM_y, TM_z)))))
-##################################################################
-print("TM_f = " + repr(TM_f))
-print("TM_I = " + repr(TM_I))
-print("TM_K = " + repr(TM_K))
-print("TM_S = " + repr(TM_S))
+sys.setrecursionlimit(10000)
 ##################################################################
 DE_0 = DEint(0)
 DE_1 = DEint(1)
