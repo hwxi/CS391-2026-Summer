@@ -1,0 +1,117 @@
+############################################################
+Quiz04-06-17:
+It is due tomorrow, the 11th of June at 11:59pm.
+############################################################
+
+Quiz04's theme is inference-based type-checking.
+Please provide a README file stating clearly and briefly
+what your submitted work is about.
+
+What is your idea? Have you tested? Does it actually work? 
+
+############################################################
+
+######
+#
+# Task 1
+#
+######
+
+Total points: 120
+
+In lectures/lecture-06-16/lambda5.py, we have implemented
+an inference-based type-checker. Please extend this type-checker
+to handle ALL language constructs present in the following
+datatype [dexp]:
+
+```
+datatype dexp =
+//
+| DEint of sint
+| DEbtf of bool
+| DEstr of strn
+//
+| DEvar of dvar
+| DElam of
+( dvar, dexp(*body*))
+| DEapp of
+( dexp(*fun*), dexp(*arg*))
+//
+| DEopr of (strn, list(dexp))
+//
+| DEfst of (dexp)
+| DEsnd of (dexp)
+| DEtup of (dexp, dexp)
+//
+| DEif0 of
+( dexp(*test*)
+, dexp(*then*), dexp(*else*))
+//
+| DEfix of
+( dvar(*fun*)
+, dvar(*arg*), dexp(*body*))
+//
+| DElet of
+( dvar(*x*)
+, dexp(*def*), dexp(*scope*))
+//
+| DElist_nil of ()
+| DElist_cons of (dexp, dexp)
+//
+| DElazy of dexp
+| DEstcn_nil of ()
+| DEstcn_cons of (dexp, dexp)
+//
+| DEarry_size$val of (dexp(*size*), dexp(*val*))
+| DEarry_size$fun of (dexp(*size*), dexp(*fun*))
+```
+
+Please note that you need to first introduce
+STlist, STstrm (and STstcn), and STarry for handling
+lists, streams (and stream-constructors), and arrays.
+
+############################################################
+
+######
+#
+# Task 2
+#
+######
+
+Total points: 30
+
+In lecture/lecture-06-08, there is an implementation
+of Eratosthenes' sieve algorithm. Please translate this
+implementation into LAMBDA such that the translation in
+LAMBDA can pass type-checking performed by the type-checker
+implemented in Task 1.
+
+######
+#
+# Task 3
+#
+######
+
+Total points: 50
+
+The following simple implementation of the factorial
+function can be readily encoded in LAMBDA (via the use
+of DEfix):
+
+def fact(n):
+  def loop(i, r):
+    return r if (i>=n) else loop(i+1, (i+1)*r)
+  return loop(0, 1)
+
+In Quiz02, Task 2 asks a translation of the above Python
+implementation into Church's pure lambda-calculus (that is,
+only, DMvar, DElam, and DEapp can be used). This time, you
+are asked to give yet another translation of the above Python
+code into Church's pure lambda-calculus such that the translation
+should pass type-checking (performed by the type-checker in Task 1).
+
+You MUST EXPLAIN the idea behind your translation (or I would not
+be able to grade your solution).
+
+############################################################
+############################################################
