@@ -34,10 +34,14 @@ dex01 = DElam1("x", STint, DE_0)
 dex02 = DElam1("x", STint, DE_x)
 dex03 = DEapp(dex01, DE_1)
 dex04 = DEapp(dex02, DEbtf(True))
+dex05 = DElam("x", DE_x)
+dex06 = DEapp(dex05, DEbtf(True))
 print("oftp(dex01) = ", dexp_oftp000(dex01))
 print("oftp(dex02) = ", dexp_oftp000(dex02))
 print("oftp(dex03) = ", dexp_oftp000(dex03))
 # print("oftp(dex04) = ", dexp_oftp000(dex04))
+print("oftp(dex05) = ", dexp_oftp000(dex05))
+print("oftp(dex06) = ", dexp_oftp000(dex06))
 
 ##################################################################
 dexp_fact_fix1 = \
@@ -46,6 +50,13 @@ DEfix1("f", "n", STint, STint,
     DEop2("*", DE_n, DEapp(DE_f, DEop2("-", DE_n, DE_1)))))
 _ = print("dexp_fact_fix1 = ", dexp_fact_fix1)
 _ = print("oftp(dexp_fact_fix1) = ", dexp_oftp000(dexp_fact_fix1))
+##################################################################
+
+stxyz1 = STxyz_new()
+stxyz2 = STxyz_new()
+print("stxyz1 = ", repr(stxyz1))
+print("stxyz2 = ", repr(stxyz2))
+
 ##################################################################
 ##################################################################
 # end of [CS391-2026-Summer/lectures/lecture-06-15/lambda5_test.py]

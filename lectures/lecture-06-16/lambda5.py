@@ -18,6 +18,8 @@ type styp = ST000
 type dvar = strn
 type dexp = DE000
 ##################################################################
+type stypopt = styp|None
+##################################################################
 @dataclass
 class ST000(ABC):
     pass
@@ -26,6 +28,16 @@ class ST000(ABC):
 class STbas(ST000):
     arg1: strn
     pass
+##################################################################
+@dataclass
+class STxyz(ST000):
+    uniq = 1
+    arg1: sint
+    arg2: stypopt
+def STxyz_new():
+    uniq = STxyz.uniq
+    STxyz.uniq = uniq + 1
+    return STxyz(uniq, None)
 ##################################################################
 @dataclass
 class STfun(ST000):
@@ -159,10 +171,6 @@ class SCTXcons(SCTX000):
     pass    
 ##################################################################
 
-type stypopt = styp|None
-
-##################################################################
-
 STint = STbas("sint")
 STbtf = STbas("bool")
 STstr = STbas("strn")
@@ -180,7 +188,86 @@ xtctx_search\
                 return xts.arg2
             else:
                 xts = xts.arg3; continue
-        raise TypeError(xts) # HX-2026-06-02: should be deadcode!
+        raise TypeError(xts) # HX-2026-06-16: should be deadcode!
+
+##################################################################
+
+def styp_eval(tex: styp) -> styp:
+    if isinstance(tex, STxyz):
+        if tex.arg2 is None:
+            return tex
+        else:
+            return styp_eval(tex.arg2)
+    return tex
+
+def \
+styp_funiz(tex: styp) -> bool:
+    tex = styp_eval(tex)
+    if isinstance(tex, STfun):
+        return True
+    if isinstance(tex, STxyz):
+        targ = STxyz_new()
+        tres = STxyz_new()
+        STxyz.arg2 = STfun(targ, tres)
+        return True
+    return False
+
+def \
+styp_tupiz(tex: styp) -> bool:
+    tex = styp_eval(tex)
+    if isinstance(tex, STtup):
+        return True
+    if isinstance(tex, STxyz):
+        targ = STxyz_new()
+        tres = STxyz_new()
+        STxyz.arg2 = STtup(targ, tres)
+        return True
+    return False
+
+def \
+styp_check\
+(tex1: STxyz, tex2: styp) -> bool:
+    if isinstance(tex2, STbas):
+        return False
+    if isinstance(tex2, STxyz):
+        return tex1.arg1 == tex2.arg2
+    if isinstance(tex2, STfun):
+        return styp_check(tex1, tex1.arg1) or styp_check(tex1, tex1.arg2)
+    if isinstance(tex2, STtup):
+        return styp_check(tex1, tex1.arg1) or styp_check(tex1, tex1.arg2)
+    raise TypeError(tex2) # HX-2026-06-16: should be deadcode!
+
+def \
+styp_unify(tex1: styp, tex2: styp) -> bool:
+    tex1 = styp_eval(tex1)
+    tex2 = styp_eval(tex2)
+    if isinstance(tex1, STxyz):
+        if styp_check(tex1, tex2):
+            if isinstance(tex2, STxyz):
+                return True
+            else:
+                return False
+        tex1.arg2 = tex2; return True
+    if isinstance(tex2, STxyz):
+        if styp_check(tex2, tex1):
+            return False
+        tex2.arg2 = tex1; return True
+    if isinstance(tex1, STbas):
+       if isinstance(tex2, STbas):
+           return tex1.arg1 == tex2.arg1
+       else:
+           return False
+    if isinstance(tex1, STfun):
+       if isinstance(tex2, STfun):
+           return styp_unify(tex1.arg1, tex2.arg1) and styp_unify(tex1.arg2, tex1.arg2)
+       else:
+           return False
+    if isinstance(tex1, STtup):
+       if isinstance(tex2, STtup):
+           return styp_unify(tex1.arg1, tex2.arg1) and styp_unify(tex1.arg2, tex1.arg2)
+       else:
+           return False
+    raise TypeError(tex1) # HX-2026-06-16: should be deadcode!
 
 ##################################################################
 
@@ -203,14 +290,26 @@ dexp_oftpctx(dex: dexp, ctx0: xtctx) -> styp:
     if isinstance(dex, DEvar):
         return \
             xtctx_search(ctx0, dex.arg1)
+    if isinstance(dex, DElam):
+        # DElam(x1, e2)
+        xarg = dex.arg1
+        body = dex.arg2
+        targ = STxyz_new()
+        ctx1 = SCTXcons(xarg, targ, ctx0)
+        tres = dexp_oftpctx(body, ctx1)
+        return STfun(targ, tres)
     if isinstance(dex, DEapp):
         # DEapp(e1, e2)
         dex1 = dex.arg1
         dex2 = dex.arg2
         tex1 = dexp_oftpctx(dex1, ctx0)
         tex2 = dexp_oftpctx(dex2, ctx0)
+        assert styp_funiz(tex1)
         assert isinstance(tex1, STfun)
-        assert (tex1.arg1 == tex2)
+        print("dexp_oftpctx: DEapp: tex1 = ", tex1)
+        print("dexp_oftpctx: DEapp: tex2 = ", tex2)
+        # assert (tex1.arg1 == tex2)
+        assert styp_unify(tex1.arg1, tex2)
         return tex1.arg2
     if isinstance(dex, DEop2):
         opnm = dex.arg1
@@ -227,6 +326,27 @@ dexp_oftpctx(dex: dexp, ctx0: xtctx) -> styp:
         tels = dexp_oftpctx(dex.arg3, ctx0)
         assert tthn == tels
         return tthn
+    if isinstance(dex, DEtup):
+        # DEtup(e1, e2)
+        dex1 = dex.arg1
+        dex2 = dex.arg2
+        tex1 = dexp_oftpctx(dex1, ctx0)
+        tex2 = dexp_oftpctx(dex2, ctx0)
+        return STtup(tex1, tex2)
+    if isinstance(dex, DEfst):
+        # DEfst(e1, e2)
+        dex1 = dex.arg1
+        tex1 = dexp_oftpctx(dex1, ctx0)
+        assert styp_tupiz(tex1)
+        assert isinstance(tex1, STtup)
+        return tex1.arg1
+    if isinstance(dex, DEsnd):
+        # DEfst(e1, e2)
+        dex1 = dex.arg1
+        tex1 = dexp_oftpctx(dex1, ctx0)
+        assert styp_tupiz(tex1)
+        assert isinstance(tex1, STtup)
+        return tex1.arg2
     if isinstance(dex, DElam1):
         # DElam1(x1, T1, e2)
         xarg = dex.arg1
