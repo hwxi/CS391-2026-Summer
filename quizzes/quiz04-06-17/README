@@ -74,7 +74,7 @@ datatype dexp =
 //
 ```
 
-Please note that you need to first introduce
+Please note that you need to introduce
 STlist, STstrm (and STstcn), and STarry for handling
 lists, streams (and stream-constructors), and arrays.
 
@@ -111,12 +111,12 @@ def fact(n):
     return r if (i>=n) else loop(i+1, (i+1)*r)
   return loop(0, 1)
 
-In Quiz02, Task 2 asks a translation of the above Python
-implementation into Church's pure lambda-calculus (that is,
-only, DMvar, DElam, and DEapp can be used). This time, you
-are asked to give yet another translation of the above Python
-code into Church's pure lambda-calculus such that the translation
-should pass type-checking (performed by the type-checker in Task 1).
+In Quiz02, Task 2 asks for a translation of the above Python
+implementation into Church's pure lambda-calculus (that is, only,
+DMvar, DElam, and DEapp can be used). This time, you are asked to
+give yet another translation of the above Python code into Church's
+pure lambda-calculus: this translation should pass type-checking
+(performed by the type-checker in Task 1).
 
 You MUST EXPLAIN the idea behind your translation (or I would not
 be able to grade your solution).
