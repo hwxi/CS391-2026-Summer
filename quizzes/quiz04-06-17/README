@@ -64,6 +64,14 @@ datatype dexp =
 //
 | DEarry_size$val of (dexp(*size*), dexp(*val*))
 | DEarry_size$fun of (dexp(*size*), dexp(*fun*))
+//
+| DEanno of (dexp, styp(*anno*))
+//
+| DElam1 of
+  (dvar(*x*), styp, dexp(*body*))
+| DEfix1 of
+  (dvar(*f*), dvar(*x*), styp(*arg*), styp(*res*), dexp(*body*))
+//
 ```
 
 Please note that you need to first introduce

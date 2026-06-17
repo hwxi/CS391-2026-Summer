@@ -381,6 +381,12 @@ dexp_oftpctx(dex: dexp, ctx0: xtctx) -> styp:
         trs2 = dexp_oftpctx(body, ctx2)
         assert styp_unify(tres, trs2)
         return tfun
+    if isinstance(dex, DEanno):
+        dex1 = dex.arg1
+        tann = dex.arg2
+        tex1 = dexp_oftpctx(dex1, ctx0)
+        assert styp_unify(tann, tex1)
+        return tann
     raise TypeError(dex) # HX-2026-06-16: dexp_oftpctx(...)
 
 ##################################################################
