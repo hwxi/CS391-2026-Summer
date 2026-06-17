@@ -230,7 +230,8 @@ styp_check\
     if isinstance(tex2, STbas):
         return False
     if isinstance(tex2, STxyz):
-        return tex1.arg1 == tex2.arg2
+        # HX: tex1 and tex2 have the same stamp?
+        return tex1.arg1 == tex2.arg1
     if isinstance(tex2, STfun):
         return styp_check(tex1, tex2.arg1) or styp_check(tex1, tex2.arg2)
     if isinstance(tex2, STtup):
@@ -298,6 +299,19 @@ dexp_oftpctx(dex: dexp, ctx0: xtctx) -> styp:
         ctx1 = SCTXcons(xarg, targ, ctx0)
         tres = dexp_oftpctx(body, ctx1)
         return STfun(targ, tres)
+    if isinstance(dex, DEfix):
+        # DElam(x1, e2)
+        farg = dex.arg1
+        xarg = dex.arg2
+        body = dex.arg3
+        targ = STxyz_new()
+        tres = STxyz_new()
+        tfun = STfun(targ, tres)
+        ctx1 = SCTXcons(farg, tfun, ctx0)
+        ctx2 = SCTXcons(xarg, targ, ctx1)
+        trs2 = dexp_oftpctx(body, ctx2)
+        assert styp_unify(tres, trs2)
+        return tfun
     if isinstance(dex, DEapp):
         # DEapp(e1, e2)
         dex1 = dex.arg1
@@ -306,9 +320,8 @@ dexp_oftpctx(dex: dexp, ctx0: xtctx) -> styp:
         tex2 = dexp_oftpctx(dex2, ctx0)
         assert styp_funiz(tex1)
         assert isinstance(tex1, STfun)
-        print("dexp_oftpctx: DEapp: tex1 = ", tex1)
-        print("dexp_oftpctx: DEapp: tex2 = ", tex2)
-        # assert (tex1.arg1 == tex2)
+        # print("dexp_oftpctx: DEapp: tex1 = ", tex1)
+        # print("dexp_oftpctx: DEapp: tex2 = ", tex2)
         assert styp_unify(tex1.arg1, tex2)
         return tex1.arg2
     if isinstance(dex, DEop2):
@@ -321,10 +334,10 @@ dexp_oftpctx(dex: dexp, ctx0: xtctx) -> styp:
     if isinstance(dex, DEif0):
         cond = dex.arg1
         tcnd = dexp_oftpctx(cond, ctx0)
-        assert tcnd == STbtf
+        assert styp_unify(tcnd, STbtf)
         tthn = dexp_oftpctx(dex.arg2, ctx0)
         tels = dexp_oftpctx(dex.arg3, ctx0)
-        assert tthn == tels
+        assert styp_unify(tthn, tels)
         return tthn
     if isinstance(dex, DEtup):
         # DEtup(e1, e2)
@@ -366,7 +379,7 @@ dexp_oftpctx(dex: dexp, ctx0: xtctx) -> styp:
         ctx1 = SCTXcons(farg, tfun, ctx0)
         ctx2 = SCTXcons(xarg, targ, ctx1)
         trs2 = dexp_oftpctx(body, ctx2)
-        assert tres == trs2
+        assert styp_unify(tres, trs2)
         return tfun
     raise TypeError(dex) # HX-2026-06-16: dexp_oftpctx(...)
 
@@ -378,48 +391,48 @@ def dop2_oftp\
     # print("dop2_oftp: tex1 = ", tex1)
     # print("dop2_oftp: tex2 = ", tex2)
     if (opnm == "+"):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STint
     if (opnm == "-"):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STint
     if (opnm == "*"):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STint
     if (opnm == "%"):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STint
     if (opnm == "/"):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STint
     if (opnm == "<"):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STbtf
     if (opnm == ">"):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STbtf
     if (opnm == "<="):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STbtf
     if (opnm == ">="):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STbtf
     if (opnm == "=="):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STbtf
     if (opnm == "!="):
-        assert (tex1 == STint)
-        assert (tex2 == STint)
+        assert styp_unify(tex1, STint)
+        assert styp_unify(tex2, STint)
         return STbtf
     raise TypeError(opnm) # HX-2026-06-16: dop2_oftp(...)
 

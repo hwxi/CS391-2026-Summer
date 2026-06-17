@@ -44,6 +44,13 @@ print("oftp(dex05) = ", dexp_oftp000(dex05))
 print("oftp(dex06) = ", dexp_oftp000(dex06))
 
 ##################################################################
+dexp_fact_fix = \
+DEfix("f", "n",
+  DEif0(DEop2("<=", DE_n, DE_0), DE_1,
+    DEop2("*", DE_n, DEapp(DE_f, DEop2("-", DE_n, DE_1)))))
+_ = print("dexp_fact_fix = ", dexp_fact_fix)
+_ = print("oftp(dexp_fact_fix) = ", dexp_oftp000(dexp_fact_fix))
+##################################################################
 dexp_fact_fix1 = \
 DEfix1("f", "n", STint, STint,
   DEif0(DEop2("<=", DE_n, DE_0), DE_1,
