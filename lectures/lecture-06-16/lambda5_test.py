@@ -51,14 +51,7 @@ DEfix1("f", "n", STint, STint,
 _ = print("dexp_fact_fix1 = ", dexp_fact_fix1)
 _ = print("oftp(dexp_fact_fix1) = ", dexp_oftp000(dexp_fact_fix1))
 ##################################################################
-
-stxyz1 = STxyz_new()
-stxyz2 = STxyz_new()
-print("stxyz1 = ", repr(stxyz1))
-print("stxyz2 = ", repr(stxyz2))
-
 ##################################################################
-##################################################################
-# end of [CS391-2026-Summer/lectures/lecture-06-15/lambda5_test.py]
+# end of [CS391-2026-Summer/lectures/lecture-06-16/lambda5_test.py]
 ##################################################################
 ##################################################################

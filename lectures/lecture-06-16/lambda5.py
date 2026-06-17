@@ -232,9 +232,9 @@ styp_check\
     if isinstance(tex2, STxyz):
         return tex1.arg1 == tex2.arg2
     if isinstance(tex2, STfun):
-        return styp_check(tex1, tex1.arg1) or styp_check(tex1, tex1.arg2)
+        return styp_check(tex1, tex2.arg1) or styp_check(tex1, tex2.arg2)
     if isinstance(tex2, STtup):
-        return styp_check(tex1, tex1.arg1) or styp_check(tex1, tex1.arg2)
+        return styp_check(tex1, tex2.arg1) or styp_check(tex1, tex2.arg2)
     raise TypeError(tex2) # HX-2026-06-16: should be deadcode!
 
 def \
@@ -368,7 +368,7 @@ dexp_oftpctx(dex: dexp, ctx0: xtctx) -> styp:
         trs2 = dexp_oftpctx(body, ctx2)
         assert tres == trs2
         return tfun
-    raise TypeError(dex) # HX-2026-06-15: dexp_oftpctx(...)
+    raise TypeError(dex) # HX-2026-06-16: dexp_oftpctx(...)
 
 ##################################################################
 
@@ -421,10 +421,10 @@ def dop2_oftp\
         assert (tex1 == STint)
         assert (tex2 == STint)
         return STbtf
-    raise TypeError(opnm) # HX-2026-06-09: dop2_oftp(...)
+    raise TypeError(opnm) # HX-2026-06-16: dop2_oftp(...)
 
 ##################################################################
 ##################################################################
-# end of [CS391-2026-Summer/lectures/lecture-06-09/lambda5.py]
+# end of [CS391-2026-Summer/lectures/lecture-06-16/lambda5.py]
 ##################################################################
 ##################################################################
