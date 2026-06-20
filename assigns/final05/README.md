@@ -124,4 +124,20 @@ compiler:
   How do you manage to use it to project the factorial of 5 (that is,
   120).
 
+8. (Optional) Using AI-assisted programming is encouraged as long as
+  you are able to explain how your submitted code works.
+
+  If you use AI to generate (some) of submitted code, please let me
+  know how you actually do it. Do you use Codex or Claude? How much
+  code are you able to generate for this project? Do you ever need to
+  fix any generated code?
+
 ## Guidelines for the Project Presentation
+
+0. Your presentation should not go over 20 minutes!
+
+1. Make some slides based on your project report. Please avoid crowding
+  your slides with too much text.
+
+2. Please do not read your slides. Instead, please elaborate on the points
+  mentioned on each slide.
