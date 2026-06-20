@@ -72,7 +72,14 @@ compiler:
   (Note that there is no need for implementing a substitution-based
   interpreter for LAMBDA).
 
-2. An inference-based type-checker (dexp_oftp000) for LAMBDA
+2. An inference-based type-checker (dexp_oftp000) for LAMBDA.
+  Note that the following interface is required this time:
+  ```
+  type stypopt = None|styp
+  def dexp_oftp000(dex: dexp) -> stypopt: ...
+  ```
+  In other words, dexp_oftp000 should not abort when applied to
+  an ill-typed dexp; it should return None instead.
 
 3. A translation function (dexp_comp000) from LAMBDA to some form of
   representation of computations (where a computation consists of a
@@ -87,12 +94,34 @@ compiler:
 5. Various tests covering ALL the language constructs of LAMBDA.
   In addtion, I expect to see some "large" LAMBDA programs tested:
   - 5.1. The eight-queen puzzle
-  - 5.2. The Eratosthenes's sieve (for constructing streams of primes)
+  - 5.2. The Eratosthenes's sieve (for a lazy stream of primes)
   - 5.3. Some code using the factorial function implemented in Church's
      pure lambda-calculus (Quiz04) to produce the factorial of 5. This
      one is designed to test your compiler's handling of higher-order
      functions
 
 ## Guidelines for the Project Report
+
+1. Give a brief introduction on (pure) lambda-calculus
+  - 1.1. What is alpha-equivalance?
+  - 1.2. What is substitution? what is "capturing"?
+  - 1.3. What is beta-redex? what is the contractum of a beta-redex
+  - 1.4. What is call-by-name? what is call-by-value
+
+2. Give a brief introduction on the LAMBDA programming language
+  - 2.1. Just explain the meaning of each of the language constructs
+
+3. Give a brief introduction on the simple type syste of LAMBDA
+  - 3.1. Just explain the typing rule for each of the language constructs
+
+4. Explain the implementation of dexp_oftp000 (and dexp_oftpctx)
+5. Explain the implementation of dexp_comp000 (and dexp_compenv)
+6. Explain how your emitter works (for emitting JavaScript code).
+
+7. Explain how your test cases work. In particular, I would like to
+  know some details on the factorial function implemented in Church's
+  pure lambda-calculus (Quiz04). What is the type of this function?
+  How do you manage to use it to project the factorial of 5 (that is,
+  120).
 
 ## Guidelines for the Project Presentation
