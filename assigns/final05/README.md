@@ -3,8 +3,8 @@
 This final project consists of 1000 points:
 
 1. Project report: 250 points
-2. Your LAMBDA Compiler: 500 points
-3. Project presentation: 250 points
+2. Project presentation: 250 points
+3. Your LAMBDA Compiler: 500 points
 
 ## The LAMBDA programming language
 
@@ -68,10 +68,11 @@ datatype dexp =
 I expect to see the following 5 (five) components in your
 compiler:
 
-1. A closure-based interpreter for LAMBDA.  (Note that there is no
-  need for implementing a substitution-based interpreter for LAMBDA).
+1. A closure-based interpreter (dexp_eval000) LAMBDA.
+  (Note that there is no need for implementing a substitution-based
+  interpreter for LAMBDA).
 
-2. An inference-based type-checker for LAMBDA
+2. An inference-based type-checker (dexp_oftp000) for LAMBDA
 
 3. A translation function (dexp_comp000) from LAMBDA to some form of
   representation of computations (where a computation consists of a
@@ -85,9 +86,9 @@ compiler:
 
 5. Various tests covering ALL the language constructs of LAMBDA.
   In addtion, I expect to see some "large" LAMBDA programs tested:
-  1. The eight-queen puzzle
-  2. The Eratosthenes's sieve (for constructing streams of primes)
-  3. Some code using the factorial function implemented in Church's
+  5.1. The eight-queen puzzle
+  5.2. The Eratosthenes's sieve (for constructing streams of primes)
+  5.3. Some code using the factorial function implemented in Church's
      pure lambda-calculus (Quiz04) to produce the factorial of 5. This
      one is designed to test your compiler's handling of higher-order
      functions
