@@ -86,9 +86,9 @@ compiler:
 
 5. Various tests covering ALL the language constructs of LAMBDA.
   In addtion, I expect to see some "large" LAMBDA programs tested:
-  5.1. The eight-queen puzzle
-  5.2. The Eratosthenes's sieve (for constructing streams of primes)
-  5.3. Some code using the factorial function implemented in Church's
+  1. The eight-queen puzzle
+  2. The Eratosthenes's sieve (for constructing streams of primes)
+  3. Some code using the factorial function implemented in Church's
      pure lambda-calculus (Quiz04) to produce the factorial of 5. This
      one is designed to test your compiler's handling of higher-order
      functions
